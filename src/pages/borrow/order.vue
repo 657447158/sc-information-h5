@@ -21,7 +21,7 @@
           </div>
           <div class="infos-item">
             <p>应还本息(CNY)</p>
-            <p class="val">{{(total + calculateInterest).toFixed(2)}}</p>
+            <p class="val">{{total + calculateInterest}}</p>
           </div>
         </div>
       </div>
@@ -135,7 +135,7 @@
           </div>
           <div class="order-modal-item">
             <span class="label">到期应付本息：</span>
-            <span class="val">{{(total + calculateInterest).toFixed(2)}}CNY</span>
+            <span class="val">{{total + calculateInterest}}CNY</span>
           </div>
           <div class="order-modal-item">
             <span class="label">收款方式：</span>
@@ -156,14 +156,14 @@
       </div>
     </otc-modal>
     <!-- 发布d成功 -->
-    <otc-modal :show="showSuccess" @hide="hideHandle" className="success-modal" dir="none">
+    <!-- <otc-modal :show="showSuccess" @hide="hideHandle" className="success-modal" dir="none">
       <div class="success-box">
         <span class="icon"></span>
         <p class="p1">发布借入单成功！</p>
         <p class="p2">坐等老板放款，财富增值！</p>
         <div class="btn" @click="freshPage">继续发布</div>
       </div>
-    </otc-modal>
+    </otc-modal> -->
   </div>
 </template>
 <script>
@@ -178,7 +178,7 @@
         showCoinModal: false,
         orderShow: false,
         showPwd: false,
-        showSuccess: false,
+        // showSuccess: false,
         total: 0,
         loanCoinList: [],
         coinIndex: 0,
@@ -207,7 +207,7 @@
         this.showCoinModal = false
         this.orderShow = false
         this.showPwd = false
-        this.showSuccess = false
+        // this.showSuccess = false
       },
       showCoinModalHandle () {
         this.hideHandle()
@@ -232,10 +232,10 @@
         this.hideHandle()
         this.showPwd = true
       },
-      showSuccessHandle () {
-        this.hideHandle()
-        this.showSuccess = true
-      },
+      // showSuccessHandle () {
+      //   this.hideHandle()
+      //   this.showSuccess = true
+      // },
       freshPage () {
         this.hideHandle()
         // this.reload()
@@ -344,7 +344,8 @@
           payTimestamps
         }).then(res => {
           if (res.success) {
-            this.showSuccessHandle()
+            this.$router.push({path: '/receive', query: {loanOrderId: res.data}})
+            // this.showSuccessHandle()
           } else {
             this.Toast({
               message: res.message

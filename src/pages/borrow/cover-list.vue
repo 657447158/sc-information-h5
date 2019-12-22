@@ -1,22 +1,22 @@
 <template>
   <div class="borrow">
-    <scroll-load requestName="getMyLendOrderList" @list="getList" :params="params">
+    <scroll-load requestName="getCoverList" @list="getList">
       <ul class="borrow-list" slot="list">
         <router-link
           tag="li"
           class="borrow-list-item"
           v-for="item in list"
           :key="item.id"
-          :to="{path: item.loanStatus === 1 ? '/pay-detail' : '/lend-current-detail', query: {loanOrderId: item.loanOrderId}}"
+          :to="{path: '/borrow-cover-detail', query: {coverId: item.coverId}}"
         >
           <div class="top">
-            <span class="box box1">借款人</span>
+            <span class="box box1">借出人</span>
             <span class="box box2">{{item.userName}}</span>
             <span class="box box3">已实名</span>
             <span class="icon-wx" v-if="item.wxPayFlag === 1"></span>
             <span class="icon-alipay" v-if="item.aliPayFlag === 1"></span>
             <span class="icon-card" v-if="item.bankPayFlag === 1"></span>
-            <div class="btn">借出</div>
+            <div class="btn">借入</div>
           </div>
           <p class="time">{{item.LoginDateDesc}}</p>
           <div class="title-box">
@@ -52,9 +52,6 @@
   export default {
     data () {
       return {
-        params: {
-          condition: 10
-        },
         list: []
       }
     },
@@ -65,3 +62,10 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+  .btn {
+    color: $fc01!important;
+    background: none!important;
+    border: 1px solid $fc01!important;
+  }
+</style>

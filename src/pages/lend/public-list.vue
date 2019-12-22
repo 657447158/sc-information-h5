@@ -2,10 +2,12 @@
   <div class="borrow">
     <scroll-load requestName="getMyPublishBorrowList" @list="getList" :params="params">
       <ul class="borrow-list" slot="list">
-        <li
+        <router-link
+          tag="li"
           class="borrow-list-item"
           v-for="item in list"
           :key="item.id"
+          :to="{path: '/lend-public-detail', query: {loanId: item.loanId}}"
         >
           <div class="top">
             <span class="box box1">借款人</span>
@@ -41,7 +43,7 @@
               <span>{{item.dailyRateDesc}}</span>
             </div>
           </div>
-        </li>
+        </router-link>
       </ul>
     </scroll-load>
   </div>

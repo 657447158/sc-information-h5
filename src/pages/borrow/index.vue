@@ -21,27 +21,29 @@
         </div>
       </div>
       <div class="borrow-total-ct">
-        <div class="tr">
-          <span class="td">当前借款金额(CNY)</span>
-          <span class="icon-eye" :class="{active: showSum}" @click="showOrHideSum"></span>
-          <span class="td total-td">累计借款金额(CNY)</span>
-        </div>
-        <div class="tr tr-nums" v-if="showSum">
-          <span class="current">{{totalDesc.nowLoanNum}}</span>
-          <span>{{totalDesc.totalLoanNum}}</span>
-        </div>
-        <div class="tr tr-nums" v-else>
-          <span class="current">******</span>
-          <span>******</span>
-        </div>
-        <div class="tr tr-sub-title">
-          <span>累计利息</span>
-          <span>最近还款日</span>
-        </div>
-        <div class="tr tr-sub-ct">
-          <span v-if="showSum">≈{{totalDesc.totalLoanInterest}}{{totalDesc.loanCoinName}}</span>
-          <span v-else>******</span>
-          <span>{{totalDesc.soonEndDate}}</span>
+        <div v-if="totalDesc && Object.keys(totalDesc).length" style="margin-bottom: 40px;">
+          <div class="tr">
+            <span class="td">当前借款金额(CNY)</span>
+            <span class="icon-eye" :class="{active: showSum}" @click="showOrHideSum"></span>
+            <span class="td total-td">累计借款金额(CNY)</span>
+          </div>
+          <div class="tr tr-nums" v-if="showSum">
+            <span class="current">{{totalDesc.nowLoanNum}}</span>
+            <span>{{totalDesc.totalLoanNum}}</span>
+          </div>
+          <div class="tr tr-nums" v-else>
+            <span class="current">******</span>
+            <span>******</span>
+          </div>
+          <div class="tr tr-sub-title">
+            <span>累计利息</span>
+            <span>最近还款日</span>
+          </div>
+          <div class="tr tr-sub-ct">
+            <span v-if="showSum">≈{{totalDesc.totalLoanInterest}}{{totalDesc.loanCoinName}}</span>
+            <span v-else>******</span>
+            <span>{{totalDesc.soonEndDate}}</span>
+          </div>
         </div>
         <ul class="nav-list">
           <router-link class="nav-list-item" tag="li" to="/my-borrow/current">
@@ -56,7 +58,7 @@
             <span class="icon icon3"></span>
             <span>我发布的借入单</span>
           </router-link>
-          <router-link class="nav-list-item" tag="li" to="">
+          <router-link class="nav-list-item" tag="li" to="/my-borrow/cover">
             <span class="icon icon4"></span>
             <span>补仓记录</span>
           </router-link>
@@ -156,9 +158,9 @@
           loanType: 'LEND',
           sortType: 10,
           loanPeriod: '',
-          wxPayFlag: 0,
-          aliPayFlag: 0,
-          bankPayFlag: 0
+          wxPayFlag: '',
+          aliPayFlag: '',
+          bankPayFlag: ''
         },
         periodList: [],
         rankList: [{
@@ -258,6 +260,7 @@
       filterConfirm () {
         const oldParams = Object.assign({}, this.params)
         const newParams = Object.assign({}, {
+          loanType: 'LEND',
           sortType: this.rankList[this.rankIndex].type,
           loanPeriod: this.periodList[this.periodIndex].configValue,
           wxPayFlag: this.wxPayFlag,
@@ -393,7 +396,6 @@
         }
       }
       .nav-list {
-        margin-top: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;

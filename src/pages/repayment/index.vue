@@ -81,22 +81,54 @@
       <p class="txt">2、借款方可以是无抵押贷款或是有抵押贷款。而中介一般是收取双方或单方的手续费为盈利目的或者是挣钱一定息差为盈利目的的新型理财模式。</p>
     </div>
     <div class="detail-bottom">
-      <span>申诉</span>
-      <span class="btn2">我已还款</span>
+      <span @click="appeal">申诉</span>
+      <span class="btn2" @click="showRepaymentModal">我已还款</span>
     </div>
-    <otc-modal :show="showCode" @hide="hideHandle" dir="none">
-      <img :src="detail.wxPaymentCode" alt="">
+    <!-- 二维码弹框 -->
+    <otc-modal :show="showCode" @hide="hideHandle" dir="none" className="code-modal">
+      <img class="code-img" :src="codePath" />
     </otc-modal>
+    <!-- 确认还款弹框 -->
+    <otc-modal :show="showRepayment" @hide="hideHandle" dir="none" class="repayment-modal">
+      <img class="repayment-modal-img" src="../../assets/images/icon-repayment.png" />
+      <p class="p1">确认还款</p>
+      <p class="p2">恶意提交未打款将限制法币交易</p>
+      <p class="p3">我确认已经打款到对方的收款账号</p>
+      <div class="btn confirm" @click="alreadyRepayment">确定</div>
+      <div class="btn cancel" @click="hideHandle">取消</div>
+    </otc-modal>
+    <!-- 还款成功弹框 -->
+    <success-modal
+      :show="showSuccess"
+      p1="还款成功"
+      p2="轻松借贷，财富增值"
+      @hideHandle="hideHandle"
+      @confirmHandle="confirmHandle"
+    />
+    <!-- 申诉成功 -->
+    <complain
+      :show="showComplain"
+      @confirmHandle="hideHandle"
+    />
   </div>
 </template>
 <script>
+  import SuccessModal from '@/widget/success.vue';
+  import complain from '@/widget/complain.vue';
   export default {
+    components: {
+      SuccessModal,
+      complain
+    },
     data () {
       return {
         detail: {},
         loanOrderId: this.$route.query.loanOrderId,
         showCode: false,
-        codePath: ''
+        codePath: '',
+        showRepayment: false,
+        showSuccess: false,
+        showComplain: false
       }
     },
     created () {
@@ -105,10 +137,23 @@
     methods: {
       hideHandle () {
         this.showCode = false
+        this.showRepayment = false
+        this.showSuccess = false
+        this.showComplain = false
       },
       showHandle (codePath) {
         this.codePath = codePath
         this.showCode = true
+      },
+      showRepaymentModal () {
+        this.showRepayment = true
+      },
+      showComplainModal () {
+        this.hideHandle()
+        this.showComplain = true
+      },
+      confirmHandle () {
+        this.$router.push('/index/borrow')
       },
       gotoRepayment () {
         this.Ajax.gotoRepayment({
@@ -117,6 +162,40 @@
           if (res.success) {
             this.detail = res.data
           }
+        })
+      },
+      // 我已还款
+      alreadyRepayment () {
+        this.Ajax.alreadyRepayment({
+          loanOrderId: this.loanOrderId
+        }).then(res => {
+          if (res.success) {
+            this.hideHandle()
+            this.showSuccess = true
+          }
+        }).catch(err => {
+          this.Toast({
+            message: err.message
+          })
+        })
+      },
+      // 申诉
+      appeal () {
+        this.Ajax.appeal({
+          loanOrderId: this.loanOrderId,
+          appealType: '20'
+        }).then(res => {
+          if (res.success) {
+            this.showComplainModal()
+          } else {
+            this.Toast({
+              message: res.message
+            })
+          }
+        }).catch(err => {
+          this.Toast({
+            message: err.message
+          })
         })
       }
     }
@@ -214,6 +293,18 @@
         height: 31px;
         background: url('../../assets/images/wx.png') no-repeat center / 100% 100%;
       }
+      .icon-alipay {
+        margin-right: 10px;
+        width: 32px;
+        height: 32px;
+        background: url('../../assets/images/alipay.png') no-repeat center / 100% 100%;
+      }
+      .icon-card {
+        margin-right: 10px;
+        width: 42px;
+        height: 32px;
+        background: url('../../assets/images/card.png') no-repeat center / 100% 100%;
+      }
     }
     .instructions {
       padding: 42px 12px 0;
@@ -259,12 +350,65 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 400px;
-      height: 400px;
       transform: translate(-50%, -50%);
-      img {
+    }
+    /deep/ .code-modal {
+      .otc-modal-content {
+        max-width: 647px;
+      }
+      .code-img {
         width: 100%;
         height: 100%;
+      }
+    }
+    /deep/ .repayment-modal {
+      .otc-modal-content {
+        padding: 55px 0 0 0;
+        width: 571px;
+        height: 711px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+      }
+      &-img {
+        width: 129px;
+        height: 129px;
+      }
+      .p1 {
+        margin-top: 5px;
+        font-size: 36px;
+        color: $fc02;
+      }
+      .p2 {
+        margin-top: 50px;
+        font-size: 24px;
+        color: #FF4848;
+      }
+      .p3 {
+        margin-top: 28px;
+        font-size: 28px;
+        color: $fc03;
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width:422px;
+        height:90px;
+        font-size: 28px;
+        color: $fc10;
+        border-radius:45px;
+      }
+      .confirm {
+        margin-top: 48px;
+        background:rgba(25,204,193,1);
+        box-shadow: 0px 8px 11px 0px rgba(25,204,193,0.21);
+      }
+      .cancel {
+        margin-top: 34px;
+        color: $fc02;
+        border: 1px solid #E4E4E4;
       }
     }
   }

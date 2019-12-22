@@ -7,7 +7,7 @@
           class="borrow-list-item"
           v-for="item in list"
           :key="item.id"
-          :to="{path: '/borrow-current-detail', query: {loanOrderId: item.loanOrderId}}"
+          :to="{path: item.loanStatus === 1 ? '/receive' : '/borrow-current-detail' , query: {loanOrderId: item.loanOrderId}}"
         >
           <div class="top">
             <span class="box box1">借出人</span>
@@ -66,5 +66,9 @@
   }
 </script>
 <style lang="scss" scoped>
-
+  .btn {
+    color: $fc01!important;
+    background: none!important;
+    border: 1px solid $fc01!important;
+  }
 </style>

@@ -21,7 +21,7 @@
           </div>
           <div class="infos-item">
             <p>到期应收本息(CNY)</p>
-            <p class="val">{{(total + calculateInterest).toFixed(2)}}</p>
+            <p class="val">{{total + calculateInterest}}</p>
           </div>
         </div>
       </div>
@@ -56,12 +56,12 @@
       </div>
     </div>
     <div class="order-btn" @click="confirmOrder">借出</div>
-    <!-- 确认借入订单信息 -->
+    <!-- 确认借出订单信息 -->
     <transition name="fade">
       <div class="order-modal" v-show="orderShow">
         <div class="mask" @click="hideHandle"></div>
         <div class="order-modal-wrap">
-          <p class="order-modal-title">确认借入订单信息</p>
+          <p class="order-modal-title">确认借出订单信息</p>
           <div class="order-modal-item">
             <span class="label">借出金额：</span>
             <span class="val">{{total}}CNY</span>
@@ -84,7 +84,7 @@
           </div>
           <div class="order-modal-item">
             <span class="label">到期应收本息：</span>
-            <span class="val">{{(total + calculateInterest).toFixed(2)}}CNY</span>
+            <span class="val">{{total + calculateInterest}}CNY</span>
           </div>
           <div class="order-modal-item">
             <span class="label">收款方式：</span>
@@ -99,18 +99,9 @@
     <otc-modal :show="showPwd" @hide="hideHandle" className="pwd-modal" dir="none">
       <div class="pass-box">
         <h5>请输入支付密码</h5>
-        <p>共需支付<span>{{pledge}}</span><span class="coin-name">{{loanCoinList[coinIndex] && loanCoinList[coinIndex].coinName}}</span></p>
+        <!-- <p>共需支付<span>{{pledge}}</span><span class="coin-name">{{loanCoinList[coinIndex] && loanCoinList[coinIndex].coinName}}</span></p> -->
         <password-box @getPwd="checkPassword"></password-box>
         <p class="tips">忘记密码？</p>
-      </div>
-    </otc-modal>
-    <!-- 发布d成功 -->
-    <otc-modal :show="showSuccess" @hide="hideHandle" className="success-modal" dir="none">
-      <div class="success-box">
-        <span class="icon"></span>
-        <p class="p1">发布借入单成功！</p>
-        <p class="p2">坐等老板放款，财富增值！</p>
-        <div class="btn" @click="freshPage">继续发布</div>
       </div>
     </otc-modal>
   </div>
@@ -126,7 +117,6 @@
         loanId: this.$route.query.loanId,
         orderShow: false,
         showPwd: false,
-        showSuccess: false,
         total: 0,
         loanCoinList: [],
         coinIndex: 0,
@@ -154,7 +144,6 @@
       hideHandle () {
         this.orderShow = false
         this.showPwd = false
-        this.showSuccess = false
       },
       showOrderHandle () {
         this.hideHandle()
@@ -175,20 +164,8 @@
         this.hideHandle()
         this.showPwd = true
       },
-      showSuccessHandle () {
-        this.hideHandle()
-        this.showSuccess = true
-      },
       freshPage () {
         this.hideHandle()
-        // this.reload()
-      },
-      // 选择币种
-      chooseCoin (index) {
-        this.hideHandle()
-        if (this.coinIndex === index) return
-        this.coinIndex = index
-        this.getLoanPledgeCoinNum()
       },
       getLoanDetail () {
         this.Ajax.getLoanDetail({
@@ -198,7 +175,6 @@
             this.detail = res.data
             this.total = res.data.maxQuota
             this.loanCoinList = res.data.loanCoinList
-            this.getLoanPledgeCoinNum()
           }
         })
       },
@@ -222,26 +198,6 @@
         }
         this.total += 1000
       },
-      /**
-       * 计算需要抵押的数量
-       * params:
-       *  borrowMoney: 借贷金额
-       *  pledgeCoinId: 抵押币种id
-       *  dailyRate: 日利率
-       *  loanPeriod: 周期
-       */
-      getLoanPledgeCoinNum () {
-        this.Ajax.getLoanPledgeCoinNum({
-          borrowMoney: this.total,
-          pledgeCoinId: this.loanCoinList[this.coinIndex].coinId,
-          dailyRate: this.detail.dailyRate,
-          loanPeriod: this.detail.loanPeriod
-        }).then(res => {
-          if (res.success) {
-            this.pledge = res.data
-          }
-        })
-      },
       // 确认订单
       confirmOrder () {
         this.showOrderHandle()
@@ -252,7 +208,6 @@
           payPassword: pwd
         }).then(res => {
           if (res.success) {
-            let { payCertificate, payTimestamps } = res.data
             this.lendOrder(res.data)
           }
         }).catch(err => {
@@ -265,18 +220,11 @@
           requestNo: new Date().getTime(),
           loanId: this.loanId,
           borrowMoney: this.total,
-
-          
-          loanCoinId: this.loanCoinList[this.coinIndex].coinId,
-          loanCoinNum: this.pledge,
-          wxPayFlag: this.wxPayFlag,
-          aliPayFlag: this.aliPayFlag,
-          bankPayFlag: this.bankPayFlag,
           payCertificate,
           payTimestamps
         }).then(res => {
           if (res.success) {
-            this.showSuccessHandle()
+            this.$router.push({path: '/pay-detail', query: {loanOrderId: res.data}})
           } else {
             this.Toast({
               message: res.message
@@ -298,7 +246,6 @@
           this.total = this.detail.maxQuota
         }
         if (preVal === this.detail.maxQuota || val === this.detail.maxQuota) return
-        this.getLoanPledgeCoinNum()
       }
     }
   }
@@ -594,7 +541,7 @@
     }
     /deep/ .pass-box {
       h5 {
-        margin-bottom: 46px;
+        margin-bottom: 66px;
         font-size: 40px;
         color: $fc02;
       }

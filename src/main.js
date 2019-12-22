@@ -20,7 +20,6 @@ router.beforeEach((to, from, next) => {
     nodeList[i].click()
   }
   if (to.name === 'index' && to.query.param) {
-    console.log(to.query.param);
     axios({
       method: 'post',
       url: '/wallet/api/otc/immediately/getWebToken',
@@ -28,7 +27,6 @@ router.beforeEach((to, from, next) => {
         param: to.query.param,
       }
     }).then(res => {
-      console.log(res);
       if (res.data.success == true)
       {
         localStorage.setItem("wallettoken", res.data.data)

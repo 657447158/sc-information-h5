@@ -11,6 +11,16 @@ export default {
         })
     },
     /**
+     * [用户初始化，记录登录时间]
+     */
+    initLoanUser (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/initLoanUser',
+            params: Object.assign({...params})
+        })
+    },
+    /**
      * [借贷单列表]
      */
     getLoanList (params) {
@@ -121,6 +131,36 @@ export default {
         })
     },
     /**
+     * [补仓记录]
+     */
+    getCoverList (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/getCoverList',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [补仓记录--详情]
+     */
+    getCoverDetail (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/getCoverDetail',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [确认补仓]
+     */
+    gotoCover (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/gotoCover',
+            params: Object.assign({...params})
+        })
+    },
+    /**
      * [订单-我的借入单--详情]
      */
     getMyBorrowOrderDetail (params) {
@@ -160,4 +200,104 @@ export default {
             params: Object.assign({...params})
         })
     },
+    /**
+     * [我的借贷单--我发布单借贷单--详情-撤销]
+     */
+    cancelMyPublishBorrow (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/cancelMyPublishBorrow',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [我的借入单--详情-确认收款详情]
+     */
+    getBorrowReceivableDetail (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/getBorrowReceivableDetail',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [我的借入单--详情-确认收款]
+     */
+    sureBorrowReceivable (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/sureBorrowReceivable',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [订单- 我的借入单--详情-我已还款]
+     */
+    alreadyRepayment (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/alreadyRepayment',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [我的借入订单--详情--撤销]
+     */
+    borrowOrderCancel (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/borrowOrder/cancel',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [我的借贷单--我发布单借贷单--详情]
+     */
+    getMyPublishBorrowDetail (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/getMyPublishBorrowDetail',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [订单-当前借出订单--详情]
+     */
+    getLendOrderDetail (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/getLendOrderDetail',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [订单-借出订单--撤销]
+     */
+    lendOrderCancel (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/lendOrder/cancel',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [订单-借出订单--撤销]
+     */
+    gotoPay (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/lendOrder/gotoPay',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [申诉]
+     */
+    appeal (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/appeal',
+            params: Object.assign({...params})
+        })
+    }
 }

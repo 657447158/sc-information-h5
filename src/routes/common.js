@@ -62,6 +62,10 @@ const routes = [
 			{
 				path: 'public',
 				component: () => import('../pages/borrow/public-list.vue')
+			},
+			{
+				path: 'cover',
+				component: () => import('../pages/borrow/cover-list.vue')
 			}
 		]
 	},
@@ -90,8 +94,13 @@ const routes = [
 	},
 	{
 		path: '/borrow-current-detail',
-		name: 'borrow-history-detail',
+		name: 'borrow-current-detail',
 		component: () => import('../pages/borrow/current-detail.vue')
+	},
+	{
+		path: '/borrow-public-detail',
+		name: 'borrow-public-detail',
+		component: () => import('../pages/borrow/public-detail.vue')
 	},
 	{
 		path: '/borrow-history-detail',
@@ -99,25 +108,45 @@ const routes = [
 		component: () => import('../pages/borrow/history-detail.vue')
 	},
 	{
+		path: '/borrow-cover-detail',
+		name: 'borrow-cover-detail',
+		component: () => import('../pages/borrow/cover-detail.vue')
+	},
+	{
 		path: '/repayment',
 		name: 'repayment',
 		component: () => import('../pages/repayment/index.vue')
 	},
-	// {
-	// 	path: '/borrow-current-detail',
-	// 	name: 'borrow-history-detail',
-	// 	component: () => import('../pages/borrow/current-detail.vue')
-	// },
+	{
+		path: '/pay',
+		name: 'pay',
+		component: () => import('../pages/pay/index.vue')
+	},
+	{
+		path: '/pay-detail',
+		name: 'pay-detail',
+		component: () => import('../pages/pay/pay-detail.vue')
+	},
+	{
+		path: '/receive',
+		name: 'receive',
+		component: () => import('../pages/receive/index.vue')
+	},
+	{
+		path: '/lend-current-detail',
+		name: 'lend-history-detail',
+		component: () => import('../pages/lend/current-detail.vue')
+	},
 	{
 		path: '/lend-history-detail',
 		name: 'lend-history-detail',
 		component: () => import('../pages/lend/history-detail.vue')
 	},
-	// {
-	// 	path: '/repayment',
-	// 	name: 'repayment',
-	// 	component: () => import('../pages/repayment/index.vue')
-	// },
+	{
+		path: '/lend-public-detail',
+		name: 'lend-public-detail',
+		component: () => import('../pages/lend/public-detail.vue')
+	}
 ]
 
 export default routes

@@ -192,7 +192,7 @@
         line-height: 88px;
         color: $fc04;
         font-size: $f22;
-        background: $bg01;
+        // background: $bg01;
         span {
             position: relative;
             display: inline-block;

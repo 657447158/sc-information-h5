@@ -33,7 +33,8 @@
             path: '/my-borrow/public'
           },
           {
-            name: '补仓记录'
+            name: '补仓记录',
+            path: '/my-borrow/cover'
           }
         ]
       }
@@ -53,6 +54,8 @@
             this.tabIndex = 1
           } else if (path === '/my-borrow/public') {
             this.tabIndex = 2
+          } else if (path === '/my-borrow/cover') {
+            this.tabIndex = 3
           }
         },
         deep: true,
@@ -224,6 +227,9 @@
           color: $fc05;
         }
       }
+    }
+    .no-data-text {
+      background: none;
     }
   }
 </style>

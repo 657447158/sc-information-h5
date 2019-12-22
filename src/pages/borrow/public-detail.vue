@@ -18,7 +18,6 @@
             <p class="val">{{detail.loanPeriod}}天</p>
           </div>
         </div>
-        <div class="cover" v-if="detail.coverFlag === '1'" @click="showCoverModalHandle">去补仓</div>
       </div>
     </div>
     <div class="detail-ct">
@@ -44,7 +43,7 @@
       </div>
       <div class="detail-ct-item">
         <span class="label">到期还款日</span>
-        <span>{{detail.loanEndDate}}</span>
+        <span>{{detail.repaymentDate}}</span>
       </div>
     </div>
     <div class="detail-pay">
@@ -68,34 +67,22 @@
       <span class="label">申诉</span>
       <span class="link" @click="appeal">去申诉</span>
     </div>
-    <router-link class="detail-btn" :to="{path: '/repayment', query: {loanOrderId}}">去还款</router-link>
-    <!-- 补仓弹窗 -->
-    <otc-modal :show="showCoverModal" @hide="hideModalHandle" dir="none" class="cover-modal">
-      <div class="cover-modal-ct">
-        <p class="cover-modal-ct-title">去补仓</p>
-        <p class="cover-modal-ct-sub-title">由于市场币价格波动，需要您补仓！</p>
-        <div class="cover-modal-ct-box">
-          <input type="number" v-model="coverAmount">
-          <span>{{detail.pledgeName}}</span>
-        </div>
-        <div class="cover-modal-ct-btn" @click="showPswHandle">确认补仓</div>
-        <p class="cover-modal-ct-tips">市场有风险投资需谨慎</p>
-      </div>
-    </otc-modal>
-    <!-- 密码框 -->
-    <otc-modal :show="showPwdModal" @hide="hideModalHandle" dir="none" className="pwd-modal">
-      <div class="pass-box">
-        <h5>请输入支付密码</h5>
-        <p>共需支付<span>{{coverAmount}}</span><span class="coin-name">{{detail.pledgeName}}</span></p>
-        <PasswordBox @getPwd="checkPassword"/>
-        <p class="tips">忘记密码？</p>
+    <div class="detail-btn" @click="showModalHandle" v-if="loanStatus === 1">撤销</div>
+    <!-- 撤销订单弹窗 -->
+    <otc-modal :show="showModal" @hide="hideModalHandle" dir="none" className="cancel-modal">
+      <div class="cancel">
+        <span class="icon"></span>
+        <p class="p1">撤销挂单</p>
+        <p class="p2">撤单后交易取消</p>
+        <div class="confirm-btn btn" @click="cancelMyPublishBorrow">确定</div>
+        <div class="cancel-btn btn" @click="hideModalHandle">取消</div>
       </div>
     </otc-modal>
     <!-- 成功 -->
     <success-modal
       :show="showSuccess"
-      p1="补仓成功"
-      p2="恭喜老板坐等财富增值"
+      p1="撤销成功"
+      p2="老板继续再来一单"
       @hideHandle="hideModalHandle"
       @confirmHandle="confirmHandle"
     />
@@ -107,70 +94,59 @@
   </div>
 </template>
 <script>
-  import PasswordBox from '@/widget/passwordBox.vue';
   import SuccessModal from '@/widget/success.vue';
   import complain from '@/widget/complain.vue';
   export default {
     components: {
-      PasswordBox,
       SuccessModal,
       complain
     },
     data () {
       return {
-        loanOrderId: this.$route.query.loanOrderId,
+        borrowId: this.$route.query.loanId,
         detail: {},
-        showPwdModal: false,
-        showCoverModal: false,
+        loanStatus: '',
+        showModal: false,
         showSuccess: false,
-        showComplain: false,
-        coverAmount: 100
+        showComplain: false
       }
     },
     created () {
-      this.getMyBorrowOrderDetail()
+      this.getMyPublishBorrowDetail()
     },
     methods: {
+      showModalHandle () {
+        this.showModal = true
+      },
       hideModalHandle () {
-        this.showPwdModal = false
-        this.showCoverModal = false
+        this.showModal = false
         this.showSuccess = false
         this.showComplain = false
       },
       confirmHandle () {
-        this.hideModalHandle()
-      },
-      showPswHandle () {
-        this.hideModalHandle()
-        this.showPwdModal = true
-      },
-      showCoverModalHandle () {
-        this.hideModalHandle()
-        this.showCoverModal = true
+        this.showSuccess = false
+        this.$router.go(-1)
       },
       showComplainModal () {
         this.hideModalHandle()
         this.showComplain = true
       },
-      getMyBorrowOrderDetail () {
-        this.Ajax.getMyBorrowOrderDetail({
-          loanOrderId: this.loanOrderId
+      getMyPublishBorrowDetail () {
+        this.Ajax.getMyPublishBorrowDetail({
+          borrowId: this.borrowId
         }).then(res => {
           if (res.success) {
             this.detail = res.data
+            this.loanStatus = res.data.loanStatus
           }
         })
       },
-      // 确认补仓
-      gotoCover ({payCertificate, payTimestamps}) {
-        this.Ajax.gotoCover({
-          loanOrderId: this.loanOrderId,
-          coverAmount: this.coverAmount,
-          payCertificate,
-          payTimestamps
+      // 撤销订单
+      cancelMyPublishBorrow () {
+        this.Ajax.cancelMyPublishBorrow({
+          borrowId: this.borrowId
         }).then(res => {
           if (res.success) {
-            this.hideModalHandle()
             this.showSuccess = true
           } else {
             this.Toast({
@@ -183,29 +159,11 @@
           })
         })
       },
-      // 获取支付凭证
-      checkPassword (pwd) {
-        this.Ajax.checkUserPayPassword({
-          payPassword: pwd
-        }).then(res => {
-          if (res.success) {
-            this.gotoCover(res.data)
-          } else {
-             this.Toast({
-              message: res.message
-            })
-          }
-        }).catch(err => {
-          this.Toast({
-            message: err.message
-          })
-        })
-      },
       // 申诉
       appeal () {
         this.Ajax.appeal({
-          loanOrderId: this.loanOrderId,
-          appealType: '20'
+          loanId: this.borrowId,
+          appealType: '10'
         }).then(res => {
           if (res.success) {
             this.showComplainModal()
@@ -383,98 +341,64 @@
         background: $themeColorOpacity;
       }
     }
-    .cover-modal {
+    .cancel-modal {
       /deep/ .otc-modal-content {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 571px;
-        height: 644px;
+        width: 570px;
+        height: 640px;
         transform: translate(-50%, -50%);
         border-radius: 20px;
-        background: url('../../assets/images/cover-modal-bg.png') no-repeat center / 100% 100%;
-      }
-      &-ct {
-        padding: 56px 0 0 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        &-title {
-          font-size: 36px;
-          color: $fc10;
-        }
-        &-sub-title {
-          margin-top: 108px;
-          font-size: 24px;
-          color: $fc03;
-        }
-        &-box {
-          margin-top: 32px;
+        .cancel {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          padding: 0 60px;
-          width:496px;
-          height:85px;
-          font-size: 24px;
-          color: $fc03;
-          background:#F4F4F4;
-          input {
-            width: 300px;
-            height: 100%;
+          .icon {
+            margin-top: 53px;
+            width: 131px;
+            height: 131px;
+            background: url('../../assets/images/icon-cancel.png') no-repeat center / 100% 100%;
           }
-        }
-        &-btn {
-          margin-top: 88px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width:422px;
-          height:90px;
-          font-size: 28px;
-          color: $fc10;
-          background:rgba(45,199,177,1);
-          box-shadow:0px 8px 11px 0px rgba(45,199,177,0.21);
-          border-radius:45px;
-        }
-        &-tips {
-          margin-top: 50px;
-          font-size: 24px;
-          color: $fc04;
-        }
-      }
-    }
-    .pwd-modal {
-      /deep/ .otc-modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        padding-top: 80px;
-        width: 671px;
-        height: 520px;
-        text-align: center;
-        background: $bg01;
-        border-radius: 20px;
-        transform: translate(-50%, -50%);
-      }
-      /deep/ .pass-box {
-        h5 {
-          margin-bottom: 46px;
-          font-size: 40px;
-          color: $fc02;
-        }
-        p {
-          margin-bottom: 66px;
-          font-size: 30px;
-          color: #181818;
-        }
-        .coin-name {
-          color: $fc01;
-        }
-        .tips {
-          margin-top: 56px;
-          font-size: 26px;
-          color: $fc03;
+          .p1 {
+            margin-top: 5px;
+            font-size: 36px;
+            color: $fc02;
+          }
+          .p2 {
+            margin-top: 50px;
+            font-size: 24px;
+            color: #FF4848;
+          }
+          .p3 {
+            margin-top: 28px;
+            font-size: 28px;
+            color: $fc03;
+          }
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 422px;
+            height: 90px;
+            font-size: 28px;
+            border-radius: 45px;
+            &:active {
+              opacity: .8;
+            }
+          }
+          .confirm-btn {
+            margin-top: 47px;
+            color: $fc10;
+            background:rgba(25,204,193,1);
+            box-shadow: 0px 8px 11px 0px rgba(25,204,193,0.21);
+          }
+          .cancel-btn {
+            margin-top: 34px;
+            color: $fc02;
+            background:rgba(255,255,255,1);
+            border:1px solid rgba(228, 228, 228, 1);
+          }
         }
       }
     }

@@ -21,27 +21,29 @@
         </div>
       </div>
       <div class="borrow-total-ct">
-        <div class="tr">
-          <span class="td">当前理财金额(CNY)</span>
-          <span class="icon-eye" :class="{active: showSum}" @click="showOrHideSum"></span>
-          <span class="td total-td">累计理财金额(CNY)</span>
-        </div>
-        <div class="tr tr-nums" v-if="showSum">
-          <span class="current">{{totalDesc.nowLoanNum}}</span>
-          <span>{{totalDesc.totalLoanNum}}</span>
-        </div>
-        <div class="tr tr-nums" v-else>
-          <span class="current">******</span>
-          <span>******</span>
-        </div>
-        <div class="tr tr-sub-title">
-          <span>累计收益</span>
-          <span>最近还款日</span>
-        </div>
-        <div class="tr tr-sub-ct">
-          <span v-if="showSum">≈{{totalDesc.totalLoanInterest}}{{totalDesc.loanCoinName}}</span>
-          <span v-else>******</span>
-          <span>{{totalDesc.soonEndDate}}</span>
+        <div v-if="totalDesc && Object.keys(totalDesc).length" style="margin-bottom: 40px;">
+          <div class="tr">
+            <span class="td">当前理财金额(CNY)</span>
+            <span class="icon-eye" :class="{active: showSum}" @click="showOrHideSum"></span>
+            <span class="td total-td">累计理财金额(CNY)</span>
+          </div>
+          <div class="tr tr-nums" v-if="showSum">
+            <span class="current">{{totalDesc.nowLoanNum}}</span>
+            <span>{{totalDesc.totalLoanNum}}</span>
+          </div>
+          <div class="tr tr-nums" v-else>
+            <span class="current">******</span>
+            <span>******</span>
+          </div>
+          <div class="tr tr-sub-title">
+            <span>累计收益</span>
+            <span>最近还款日</span>
+          </div>
+          <div class="tr tr-sub-ct">
+            <span v-if="showSum">≈{{totalDesc.totalLoanInterest}}{{totalDesc.loanCoinName}}</span>
+            <span v-else>******</span>
+            <span>{{totalDesc.soonEndDate}}</span>
+          </div>
         </div>
         <ul class="nav-list">
           <router-link class="nav-list-item" tag="li" to="/my-lend/current">
@@ -152,9 +154,9 @@
           loanType: 'BORROW',
           sortType: 10,
           loanPeriod: '',
-          wxPayFlag: 0,
-          aliPayFlag: 0,
-          bankPayFlag: 0
+          wxPayFlag: '',
+          aliPayFlag: '',
+          bankPayFlag: ''
         },
         periodList: [],
         rankList: [{
@@ -390,7 +392,6 @@
         }
       }
       .nav-list {
-        margin-top: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;

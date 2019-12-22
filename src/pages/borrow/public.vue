@@ -277,18 +277,24 @@
       },
       // 日利率减法
       minusDailyRate () {
-        let rate = parseFloat(this.dailyRateDesc) * 10
+        let rate = parseFloat(this.dailyRateDesc) * 100
         rate--
         if (rate <= 0) {
           rate = 0
+          this.dailyRateDesc = '0%'
+        } else {
+          let r1 = rate.toString().split('.')[1] ? rate.toString().split('.')[1].length : 0
+          let m = Math.pow(10, r1)
+          this.dailyRateDesc = ((rate * m) / (100 * m)).toFixed(2) + '%'
         }
-        this.dailyRateDesc = rate / 10 + '%'
       },
       // 日利率加法
       plusDailyRate () {
-        let rate = parseFloat(this.dailyRateDesc) * 10
+        let rate = parseFloat(this.dailyRateDesc) * 100
         rate++
-        this.dailyRateDesc = rate / 10 + '%'
+        let r1 = rate.toString().split('.')[1] ? rate.toString().split('.')[1].length : 0
+        let m = Math.pow(10, r1)
+        this.dailyRateDesc = ((rate * m) / (100 * m)).toFixed(2) + '%'
       },
       hideHandle () {
         this.showCoinModal = false
@@ -329,7 +335,7 @@
       },
       freshPage () {
         this.hideHandle()
-        this.reload()
+        this.$router.push('/index/borrow')
       },
       // 选择币种
       chooseCoin (index) {
@@ -415,7 +421,6 @@
           payPassword: pwd
         }).then(res => {
           if (res.success) {
-            let { payCertificate, payTimestamps } = res.data
             this.publishLoan(res.data)
           }
         }).catch(err => {
