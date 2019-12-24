@@ -7,7 +7,8 @@
           class="borrow-list-item"
           v-for="item in list"
           :key="item.id"
-          :to="{path: item.loanStatus === 1 ? '/pay-detail' : '/lend-current-detail', query: {loanOrderId: item.loanOrderId}}"
+          :to="{ path: item.detailPath, query: {loanOrderId: item.loanOrderId}
+          }"
         >
           <div class="top">
             <span class="box box1">借款人</span>
@@ -61,6 +62,15 @@
     methods: {
       getList (val) {
         this.list = this.list.concat(val)
+        this.list.map(item => {
+          if (item.loanStatus === 1) {
+            item.detailPath = '/pay-detail'
+          } else if (item.loanStatus === 4 || item.loanStatus === 5) {
+            item.detailPath = '/receive-lend'
+          } else {
+            item.detailPath = '/lend-current-detail'
+          }
+        })
       }
     }
   }

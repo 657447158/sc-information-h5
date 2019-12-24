@@ -3,8 +3,8 @@ import Toast from '@/components/toast'
 let baseURL = ''
 
 // 设置token
-// axios.defaults.headers.token = localStorage.getItem('wallettoken')
-axios.defaults.headers.token = '%2FnuxJczgzyI6fNXbnZwxtOAbo0y%2FA3tPu4jPWQhNCwhZNLx6qL508JhW49lxqCXW.TEU89gEa8POXZdTinC4wyLM05bZf6%2BunhbvQp7o5uHVfHeId5i%2FNdMMJyx8CPdAVTwbgWmQdTaub%0AkSZTV8YaR5GkeGruB0NHSzeZv8%2FKa8O6W95%2Fyjv9tznNWiHSQ%2BhJ'
+axios.defaults.headers.token = localStorage.getItem('loantoken')
+// axios.defaults.headers.token = '%2FnuxJczgzyI6fNXbnZwxtOAbo0y%2FA3tPu4jPWQhNCwhZNLx6qL508JhW49lxqCXW.TEU89gEa8POXZdTinC4wyLM05bZf6%2BunhbvQp7o5uHVfHeId5i%2FNdMMJyx8CPdAVTwbgWmQdTaub%0AkSZTV8YaR5GkeGruB0NHSzeZv8%2FKa8O6W95%2Fyjv9tznNWiHSQ%2BhJ'
 
 export default function ajax (p) {
     let options = Object.assign({

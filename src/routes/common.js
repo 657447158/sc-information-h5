@@ -133,6 +133,11 @@ const routes = [
 		component: () => import('../pages/receive/index.vue')
 	},
 	{
+		path: '/receive-lend',
+		name: 'receive',
+		component: () => import('../pages/receive/index-lend.vue')
+	},
+	{
 		path: '/lend-current-detail',
 		name: 'lend-history-detail',
 		component: () => import('../pages/lend/current-detail.vue')

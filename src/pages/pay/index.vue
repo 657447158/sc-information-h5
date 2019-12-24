@@ -83,9 +83,19 @@
         </div>
       </div>
     </div>
+    <div class="pay-btn" @click="showPayModal">我已付款</div>
     <!-- 二维码弹窗 -->
     <otc-modal :show="showCode" @hide="hideHandle" dir="none">
       <img :src="codePath" />
+    </otc-modal>
+    <!-- 确认付款弹框 -->
+    <otc-modal :show="showPay" @hide="hideHandle" dir="none" class="pay-modal">
+      <img class="pay-modal-img" src="../../assets/images/icon-repayment.png" />
+      <p class="p1">确认付款</p>
+      <p class="p2">恶意提交未打款将限制法币交易</p>
+      <p class="p3">我确认已经打款到对方的收款账号</p>
+      <div class="btn confirm" @click="finishPay">确定</div>
+      <div class="btn cancel" @click="hideHandle">取消</div>
     </otc-modal>
   </div>
 </template>
@@ -95,6 +105,7 @@
       return {
         loanOrderId: this.$route.query.loanOrderId,
         showCode: false,
+        showPay: false,
         codePath: '',
         typeIndex: 0,
         detail: {}
@@ -106,10 +117,15 @@
     methods: {
       hideHandle () {
         this.showCode = false
+        this.showPay = false
       },
       showHandle (codePath) {
         this.codePath = codePath
         this.showCode = true
+      },
+      showPayModal () {
+        this.hideHandle()
+        this.showPay = true
       },
       choosePayType (index) {
         this.typeIndex = index
@@ -121,6 +137,26 @@
           if (res.success) {
             this.detail = res.data
           }
+        })
+      },
+      finishPay () {
+        this.Ajax.finishPay({
+          loanOrderId: this.loanOrderId
+        }).then(res => {
+          this.hideHandle()
+          this.Toast({
+            message: res.message
+          })
+          if (res.success) {
+            setTimeout(() => {
+              this.$router.push({path: '/pay-detail', query: {loanOrderId: this.loanOrderId}})
+            }, 2000)
+          }
+        }).catch(err => {
+          this.hideHandle()
+          this.Toast({
+            message: err.message
+          })
         })
       }
     }
@@ -239,6 +275,23 @@
         background: url('../../assets/images/pay-type-code.png') no-repeat center / 100% 100%;
       }
     }
+    &-btn {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height:98px;
+      font-size: 30px;
+      color: $fc10;
+      background:rgba(56,138,244,1);
+      border:0px solid rgba(0,0,0,1);
+      &:active {
+        opacity: .8;
+      }
+    }
     /deep/ .otc-modal-content {
       position: absolute;
       top: 50%;
@@ -249,6 +302,56 @@
       img {
         width: 100%;
         height: 100%;
+      }
+    }
+    /deep/ .pay-modal {
+      .otc-modal-content {
+        padding: 55px 0 0 0;
+        width: 571px;
+        height: 711px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+      }
+      &-img.pay-modal-img {
+        width: 129px;
+        height: 129px;
+      }
+      .p1 {
+        margin-top: 5px;
+        font-size: 36px;
+        color: $fc02;
+      }
+      .p2 {
+        margin-top: 50px;
+        font-size: 24px;
+        color: #FF4848;
+      }
+      .p3 {
+        margin-top: 28px;
+        font-size: 28px;
+        color: $fc03;
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width:422px;
+        height:90px;
+        font-size: 28px;
+        color: $fc10;
+        border-radius:45px;
+      }
+      .confirm {
+        margin-top: 48px;
+        background:#388AF4;
+        box-shadow:0px 8px 11px 0px rgba(56,138,244,0.21);
+      }
+      .cancel {
+        margin-top: 34px;
+        color: $fc02;
+        border: 1px solid #E4E4E4;
       }
     }
   }

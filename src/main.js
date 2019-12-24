@@ -19,18 +19,18 @@ router.beforeEach((to, from, next) => {
   for (let i = 0; i < nodeList.length; i++) {
     nodeList[i].click()
   }
-  if (to.name === 'index' && to.query.param) {
+  if (to.path === '/index/borrow' && to.query.param) {
     axios({
       method: 'post',
-      url: '/wallet/api/otc/immediately/getWebToken',
+      url: '/loanApi/api/otc/immediately/getWebToken',
       params: {
         param: to.query.param,
       }
     }).then(res => {
       if (res.data.success == true)
       {
-        localStorage.setItem("wallettoken", res.data.data)
-        axios.defaults.headers.token = localStorage.getItem('wallettoken');
+        localStorage.setItem("loantoken", res.data.data)
+        axios.defaults.headers.token = localStorage.getItem('loantoken');
         next()
       }
     }).catch(err =>{

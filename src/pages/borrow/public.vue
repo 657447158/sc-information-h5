@@ -496,6 +496,7 @@
       dailyRateDesc (val) {
         this.dailyRate = parseFloat(val) / 100
         this.dailyRateDesc = parseFloat(val) + '%'
+        this.getLoanPledgeCoinNum()
       }
     }
   }

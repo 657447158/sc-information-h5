@@ -41,7 +41,7 @@
         <span class="label">到期还款日</span>
         <span>{{detail.loanEndDate}}</span>
       </div>
-      <div class="detail-ct-item">
+      <div class="detail-ct-item" v-if="detail.repaymentDate">
         <span class="label">还款日期</span>
         <span>{{detail.repaymentDate}}</span>
       </div>

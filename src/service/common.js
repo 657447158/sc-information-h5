@@ -299,5 +299,25 @@ export default {
             url: 'api/loan/appeal',
             params: Object.assign({...params})
         })
+    },
+    /**
+     * [申诉]
+     */
+    finishPay (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/lendOrder/finishPay',
+            params: Object.assign({...params})
+        })
+    },
+    /**
+     * [订单-我的借出订单--收款]
+     */
+    receivable (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/receivable',
+            params: Object.assign({...params})
+        })
     }
 }
