@@ -33,7 +33,7 @@
     <div class="order-form">
       <div class="order-form-td order-form-td2">
         <div class="item1">
-          <span>折合年华（%）</span>
+          <span>折合年化（%）</span>
           <span class="val">{{detail.annualizedRateDesc}}</span>
         </div>
         <div class="item1">
@@ -67,7 +67,7 @@
             <span class="val">{{total}}CNY</span>
           </div>
           <div class="order-modal-item">
-            <span class="label">参考年华：</span>
+            <span class="label">参考年化：</span>
             <span class="val">{{detail.annualizedRateDesc}}</span>
           </div>
           <div class="order-modal-item">
@@ -76,7 +76,7 @@
           </div>
           <div class="order-modal-item">
             <span class="label">借款周期：</span>
-            <span class="val">{{detail.loanPeriod}}</span>
+            <span class="val">{{detail.loanPeriod}}天</span>
           </div>
           <div class="order-modal-item">
             <span class="label">到期利息：</span>

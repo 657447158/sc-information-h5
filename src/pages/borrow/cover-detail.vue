@@ -30,7 +30,7 @@
         <span>{{detail.dailyRateDesc}}</span>
       </div>
       <div class="detail-ct-item">
-        <span class="label">拾合年华(%)</span>
+        <span class="label">折合年化(%)</span>
         <span>{{detail.annualizedRateDesc}}</span>
       </div>
       <div class="detail-ct-item">

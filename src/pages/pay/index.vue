@@ -149,7 +149,7 @@
           })
           if (res.success) {
             setTimeout(() => {
-              this.$router.push({path: '/pay-detail', query: {loanOrderId: this.loanOrderId}})
+              this.$router.push({path: '/lend-history-detail', query: {loanOrderId: this.loanOrderId}})
             }, 2000)
           }
         }).catch(err => {

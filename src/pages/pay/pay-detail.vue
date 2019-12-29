@@ -26,11 +26,11 @@
         <span class="val">{{detail.dailyRateDesc}}</span>
       </div>
       <div class="receive-box-item">
-        <span>参考年华</span>
+        <span>参考年化</span>
         <span class="val">{{detail.annualizedRateDesc}}</span>
       </div>
     </div>
-    <div class="receive-time">
+    <div class="receive-time" v-if="detail.loanStatus === 1">
       <p>请在此时间内完成付款,过期订单将自动取消,超过3笔取消订单将禁止法币借贷交易.</p>
       <div class="receive-time-box">
         <div class="top">{{countdown}}</div>
@@ -62,10 +62,10 @@
         <span>借贷还款时间</span>
       </div>
     </div>
-    <router-link class="receive-confirm" :to="{path: '/pay', query: {loanOrderId}}">去支付</router-link>
+    <router-link class="receive-confirm" :to="{path: '/pay', query: {loanOrderId}}" v-if="detail.loanStatus === 1">去支付</router-link>
     <div class="receive-btn-box">
-      <div class="btn" @click="appeal">我要申诉</div>
-      <div class="btn" @click="showModalHandle">撤销订单</div>
+      <div class="btn" :class="detail.loanStatus !== 1 && 'active'" @click="appeal">我要申诉</div>
+      <div class="btn" @click="showModalHandle" v-if="detail.loanStatus === 1">撤销订单</div>
     </div>
     <!-- 撤销订单弹窗 -->
     <otc-modal :show="showModal" @hide="hideModalHandle" dir="none" className="cancel-modal">
@@ -432,7 +432,7 @@
       }
     }
     &-confirm {
-      margin: 58px auto 32px;
+      margin: 58px auto 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -447,10 +447,11 @@
       }
     }
     &-btn-box {
+      margin-top: 32px;
       padding: 0 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-evenly;
       .btn {
         display: flex;
         align-items: center;
@@ -462,6 +463,9 @@
         color: $fc03;
         border: 1px solid #E8E8E8;
         border-radius: 10px;
+        &.active {
+          width: 100%;
+        }
       }
     }
     .cancel-modal {

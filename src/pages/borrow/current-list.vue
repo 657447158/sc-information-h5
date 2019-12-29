@@ -25,7 +25,7 @@
               <p class="p2">¥<span>{{item.loanNum}}</span></p>
             </div>
             <div class="title-box-item">
-              <span class="p1">参考年华</span>
+              <span class="p1">参考年化</span>
               <span class="p3">{{item.annualizedRateDesc}}</span>
             </div>
           </div>

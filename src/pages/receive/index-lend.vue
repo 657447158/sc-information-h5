@@ -2,8 +2,8 @@
   <div class="detail">
     <div class="detail-top">
       <div class="detail-top-name">
-        <span>借出人：{{detail.userName}}</span>
-        <a class="icon-phone" :href="`tel:${detail.userMobile}`"></a>
+        <span>借入人：{{detail.borrowUserName}}</span>
+        <a class="icon-phone" :href="`tel:${detail.borrowUserMobile}`"></a>
       </div>
       <div class="detail-top-item">
         <span class="label">应还本息(CNY)</span>

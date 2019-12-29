@@ -3,7 +3,7 @@
     <div class="public-top">
       <div class="public-top-box">
         <p class="title">借出金额CNY</p>
-        <input class="total" type="number" v-model="total">
+        <input class="total" type="number" v-model="total" @blur="totalInputBlur">
         <div class="controls">
           <div class="controls-item left">
             <span class="icon icon-minus" @click="minusTotal"></span>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="public-form-td public-form-td1">
-        <span class="t1">拾合年华(%): </span>
+        <span class="t1">折合年化(%): </span>
         <span class="t2">{{detail.annualizedRateDesc}}</span>
       </div>
       <div class="public-form-td">
@@ -124,18 +124,18 @@
         </ul>
       </div>
     </otc-modal>
-    <!-- 确认借入订单信息 -->
+    <!-- 确认借出挂单信息 -->
     <transition name="fade">
       <div class="order-modal" v-show="orderShow">
         <div class="mask" @click="hideHandle"></div>
         <div class="order-modal-wrap">
-          <p class="order-modal-title">确认借出订单信息</p>
+          <p class="order-modal-title">确认借出挂单信息</p>
           <div class="order-modal-item">
             <span class="label">借出金额：</span>
             <span class="val">{{total}}CNY</span>
           </div>
           <div class="order-modal-item">
-            <span class="label">参考年华：</span>
+            <span class="label">参考年化：</span>
             <span class="val">{{detail.annualizedRateDesc}}</span>
           </div>
           <div class="order-modal-item">
@@ -218,9 +218,7 @@
         wxPayFlag: 1,
         aliPayFlag: 0,
         bankPayFlag: 0,
-        payTypeList: '',
-        // 是否可以请求需抵押标记
-        requestFlag: false
+        payTypeList: ''
       }
     },
     computed: {
@@ -237,21 +235,39 @@
       this.getLoanPeriod()
     },
     methods: {
-      // 借入金额减法
+      // 借出金额输入框失焦事件
+      totalInputBlur () {
+        if (this.total < this.min) {
+          this.total = this.min
+        }
+        if (this.total > this.max) {
+          this.total = this.max
+        }
+        if (this.total % 100 !== 0) {
+          this.Toast({
+            message: '借出金额必须为100的整数'
+          })
+          setTimeout(() => {
+            var l = 100 - this.total % 100
+            this.total += l
+          }, 2000)
+        }
+      },
+      // 借出金额减法
       minusTotal () {
         if (this.total === this.min) {
           this.Toast({
-            message: `借入金额不得低于${this.min}`
+            message: `借出金额不得低于${this.min}`
           })
           return
         }
         this.total -= 1000
       },
-      // 借入金额加法
+      // 借出金额加法
       plusTotal () {
         if (this.total === this.max) {
           this.Toast({
-            message: `借入金额不得大于${this.max}`
+            message: `借出金额不得大于${this.max}`
           })
           return
         }
@@ -324,14 +340,12 @@
         this.hideHandle()
         if (this.coinIndex === index) return
         this.coinIndex = index
-        this.getLoanPledgeCoinNum()
       },
       // 选择借款周期
       choosePeriod (index) {
         this.hideHandle()
         if (this.periodIndex === index) return
         this.periodIndex = index
-        this.getLoanPledgeCoinNum()
       },
       // 选择支付方式
       choosePayType (type) {
@@ -346,9 +360,6 @@
         this.Ajax.getLoanPeriod()
           .then(res => {
             if (res.success) {
-              if (this.loanCoinList.length) {
-                this.requestFlag = true
-              }
               this.periodList = res.data
             }
           })
@@ -357,35 +368,12 @@
         this.Ajax.publishLoanParam()
           .then(res => {
             if (res.success) {
-              if (this.periodList.length) {
-                this.requestFlag = true
-              }
               this.detail = res.data
               this.dailyRate = res.data.dailyRate
               this.dailyRateDesc = res.data.dailyRateDesc
               this.loanCoinList = res.data.loanCoinList
             }
           })
-      },
-      /**
-       * 计算需要抵押的数量
-       * params:
-       *  borrowMoney: 借贷金额
-       *  pledgeCoinId: 抵押币种id
-       *  dailyRate: 日利率
-       *  loanPeriod: 周期
-       */
-      getLoanPledgeCoinNum () {
-        this.Ajax.getLoanPledgeCoinNum({
-          borrowMoney: this.total,
-          pledgeCoinId: this.loanCoinList[this.coinIndex].coinId,
-          dailyRate: this.dailyRate,
-          loanPeriod: this.periodList[this.periodIndex].configValue
-        }).then(res => {
-          if (res.success) {
-            this.pledge = res.data
-          }
-        })
       },
       // 确认订单
       confirmOrder () {
@@ -441,14 +429,8 @@
       total (val, preVal) {
         val = Number(val)
         preVal = Number(preVal)
-        if (val < this.min) {
-          this.total = this.min
-        }
-        if (val > this.max) {
-          this.total = this.max
-        }
         if (preVal === this.max || val === this.max) return
-        this.getLoanPledgeCoinNum()
+        this.total = val
       },
       limitMin (val) {
         val = Number(val)
@@ -466,11 +448,6 @@
         }
         if (val > this.max) {
           this.limitMax = this.max
-        }
-      },
-      requestFlag (flag) {
-        if (flag) {
-          this.getLoanPledgeCoinNum()
         }
       },
       dailyRateDesc (val) {

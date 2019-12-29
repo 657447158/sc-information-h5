@@ -3,7 +3,7 @@
     <div class="public-top">
       <div class="public-top-box">
         <p class="title">借入金额CNY</p>
-        <input class="total" type="number" v-model="total">
+        <input class="total" type="number" v-model="total" @blur="totalInputBlur">
         <div class="controls">
           <div class="controls-item left">
             <span class="icon icon-minus" @click="minusTotal"></span>
@@ -21,7 +21,7 @@
           </div>
           <div class="infos-item">
             <p>应还本息(CNY)</p>
-            <p class="val">{{(total + calculateInterest).toFixed(2)}}</p>
+            <p class="val">{{Number((+total + calculateInterest)).toFixed(2)}}</p>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="public-form-td public-form-td1">
-        <span class="t1">拾合年华(%): </span>
+        <span class="t1">折合年化(%): </span>
         <span class="t2">{{detail.annualizedRateDesc}}</span>
       </div>
       <div class="public-form-td">
@@ -153,7 +153,7 @@
             <span class="val">{{total}}CNY</span>
           </div>
           <div class="order-modal-item">
-            <span class="label">参考年华：</span>
+            <span class="label">参考年化：</span>
             <span class="val">{{detail.annualizedRateDesc}}</span>
           </div>
           <div class="order-modal-item">
@@ -170,7 +170,7 @@
           </div>
           <div class="order-modal-item">
             <span class="label">到期应付本息：</span>
-            <span class="val">{{(total + calculateInterest).toFixed(2)}}CNY</span>
+            <span class="val">{{Number((+total + calculateInterest)).toFixed(2)}}CNY</span>
           </div>
           <div class="order-modal-item">
             <span class="label">收款方式：</span>
@@ -247,7 +247,7 @@
        */
       calculateInterest () {
         if (!this.periodList[this.periodIndex]) return 0
-        return Number((this.total * this.dailyRate * this.periodList[this.periodIndex].configValue).toFixed(2))
+        return Number((this.total * this.dailyRate * (this.periodList.length ? this.periodList[this.periodIndex].configValue : 7)).toFixed(2))
       }
     },
     created () {
@@ -255,6 +255,24 @@
       this.getLoanPeriod()
     },
     methods: {
+      // 借入金额输入框失焦事件
+      totalInputBlur () {
+        if (this.total < this.min) {
+          this.total = this.min
+        }
+        if (this.total > this.max) {
+          this.total = this.max
+        }
+        if (this.total % 100 !== 0) {
+          this.Toast({
+            message: '借入金额必须为100的整数'
+          })
+          setTimeout(() => {
+            var l = 100 - this.total % 100
+            this.total += l
+          }, 2000)
+        }
+      },
       // 借入金额减法
       minusTotal () {
         if (this.total === this.min) {
@@ -398,7 +416,7 @@
           borrowMoney: this.total,
           pledgeCoinId: this.loanCoinList[this.coinIndex].coinId,
           dailyRate: this.dailyRate,
-          loanPeriod: this.periodList[this.periodIndex].configValue
+          loanPeriod: this.periodList.length ? this.periodList[this.periodIndex].configValue : 7
         }).then(res => {
           if (res.success) {
             this.pledge = res.data
@@ -461,13 +479,8 @@
       total (val, preVal) {
         val = Number(val)
         preVal = Number(preVal)
-        if (val < this.min) {
-          this.total = this.min
-        }
-        if (val > this.max) {
-          this.total = this.max
-        }
         if (preVal === this.max || val === this.max) return
+        this.total = val
         this.getLoanPledgeCoinNum()
       },
       limitMin (val) {
@@ -493,10 +506,12 @@
           this.getLoanPledgeCoinNum()
         }
       },
-      dailyRateDesc (val) {
+      dailyRateDesc (val, preVal) {
         this.dailyRate = parseFloat(val) / 100
         this.dailyRateDesc = parseFloat(val) + '%'
-        this.getLoanPledgeCoinNum()
+        if ((parseFloat(val) !== parseFloat(preVal)) && this.requestFlag) {
+          this.getLoanPledgeCoinNum()
+        }
       }
     }
   }

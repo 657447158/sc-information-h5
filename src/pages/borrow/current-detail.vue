@@ -18,7 +18,11 @@
             <p class="val">{{detail.loanPeriod}}天</p>
           </div>
         </div>
-        <div class="cover" v-if="detail.coverFlag === '1'" @click="showCoverModalHandle">去补仓</div>
+        <div
+          class="cover"
+          v-if="detail.coverFlag === '1' && (detail.loanStatus === 3 || detail.loanStatus === 4 || detail.loanStatus === 9)"
+          @click="showCoverModalHandle"
+        >去补仓</div>
       </div>
     </div>
     <div class="detail-ct">
@@ -31,7 +35,7 @@
         <span>{{detail.dailyRateDesc}}</span>
       </div>
       <div class="detail-ct-item">
-        <span class="label">拾合年华(%)</span>
+        <span class="label">折合年化(%)</span>
         <span>{{detail.annualizedRateDesc}}</span>
       </div>
       <div class="detail-ct-item">
@@ -68,14 +72,18 @@
       <span class="label">申诉</span>
       <span class="link" @click="appeal">去申诉</span>
     </div>
-    <router-link class="detail-btn" :to="{path: '/repayment', query: {loanOrderId}}">去还款</router-link>
+    <router-link
+      class="detail-btn"
+      :to="{path: '/repayment', query: {loanOrderId}}"
+      v-if="detail.loanStatus === 3 || detail.loanStatus === 4 || detail.loanStatus === 9"
+    >去还款</router-link>
     <!-- 补仓弹窗 -->
     <otc-modal :show="showCoverModal" @hide="hideModalHandle" dir="none" class="cover-modal">
       <div class="cover-modal-ct">
         <p class="cover-modal-ct-title">去补仓</p>
         <p class="cover-modal-ct-sub-title">由于市场币价格波动，需要您补仓！</p>
         <div class="cover-modal-ct-box">
-          <input type="number" v-model="coverAmount">
+          <p>{{coverAmount}}</p>
           <span>{{detail.pledgeName}}</span>
         </div>
         <div class="cover-modal-ct-btn" @click="showPswHandle">确认补仓</div>
@@ -124,7 +132,7 @@
         showCoverModal: false,
         showSuccess: false,
         showComplain: false,
-        coverAmount: 100
+        coverAmount: 0
       }
     },
     created () {
@@ -146,6 +154,7 @@
       },
       showCoverModalHandle () {
         this.hideModalHandle()
+        this.getCoverCoinNum()
         this.showCoverModal = true
       },
       showComplainModal () {
@@ -159,6 +168,24 @@
           if (res.success) {
             this.detail = res.data
           }
+        })
+      },
+      // 获取补仓金额
+      getCoverCoinNum () {
+        this.Ajax.getCoverCoinNum({
+          loanOrderId: this.loanOrderId
+        }).then(res => {
+          if (res.success) {
+            this.coverAmount = res.data
+          } else {
+            this.Toast({
+              message: res.message
+            })
+          }
+        }).catch(err => {
+          this.Toast({
+            message: err.message
+          })
         })
       },
       // 确认补仓

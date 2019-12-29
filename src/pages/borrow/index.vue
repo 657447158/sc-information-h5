@@ -88,7 +88,7 @@
               <p class="p2">¥<span>{{item.loanRestNum}}</span></p>
             </div>
             <div class="title-box-item">
-              <span class="p1">参考年华</span>
+              <span class="p1">参考年化</span>
               <span class="p3">{{item.annualizedRateDesc}}</span>
             </div>
           </div>
@@ -164,7 +164,7 @@
         },
         periodList: [],
         rankList: [{
-          name: '年华增序',
+          name: '年化增序',
           type: 10
         }, {
           name: '金额降序',

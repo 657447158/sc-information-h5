@@ -319,5 +319,15 @@ export default {
             url: 'api/loan/receivable',
             params: Object.assign({...params})
         })
+    },
+    /**
+     * [计算补仓金额]
+     */
+    getCoverCoinNum (params) {
+        return ajax({
+            type: 'POST',
+            url: 'api/loan/getCoverCoinNum',
+            params: Object.assign({...params})
+        })
     }
 }

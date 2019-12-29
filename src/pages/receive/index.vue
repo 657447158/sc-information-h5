@@ -26,7 +26,7 @@
         <span class="val">{{detail.dailyRateDesc}}</span>
       </div>
       <div class="receive-box-item">
-        <span>参考年华</span>
+        <span>参考年化</span>
         <span class="val">{{detail.annualizedRateDesc}}</span>
       </div>
     </div>
@@ -53,7 +53,7 @@
     <div class="receive-confirm" @click="showPswHandle">确认收款</div>
     <div class="receive-btn-box">
       <div class="btn" @click="appeal">我要申诉</div>
-      <div class="btn" @click="showModalHandle">撤销订单</div>
+      <!-- <div class="btn" @click="showModalHandle">撤销订单</div> -->
     </div>
     <!-- 密码框 -->
     <otc-modal :show="showPwdModal" @hide="hideModalHandle" dir="none" className="pwd-modal">
@@ -136,7 +136,7 @@
       },
       confirmHandle () {
         this.hideModalHandle()
-        this.$router.go(-1)
+        this.$router.push({path: '/borrow-current-detail', query: {loanOrderId: this.loanOrderId}})
       },
       // 获取支付凭证
       checkPassword (pwd) {
@@ -439,12 +439,12 @@
       padding: 0 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       .btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 316px;
+        width: 100%;
         height: 80px;
         background: $bg01;
         font-size: 30px;
