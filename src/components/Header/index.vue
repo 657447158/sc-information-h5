@@ -2,7 +2,7 @@
   <div class="header">
     <img src="../../assets/images/logo@3x.png" alt class="logo" />
     <div class="header-right">
-      <span class="icon-mobile">&#xe673;</span>
+      <!-- <span class="icon-mobile">&#xe673;</span> -->
       <span class="menu">
         <i></i>
         <i></i>
