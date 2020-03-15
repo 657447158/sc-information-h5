@@ -13,10 +13,4 @@ module.exports = {
         }
     },
     publicPath: '/',
-    pages: {
-        'index': {
-          title,
-          entry: 'src/pages/index/main.js'
-        },
-    }    
 }
