@@ -1,10 +1,8 @@
 <template>
   <div class="index-container">
     <Header />
-    <div class="banner">
-      <img src="../../assets/images/banner.png" alt />
-      <p>Welcome to Sichuan</p>
-    </div>
+    <router-view></router-view>
+    <Banner/>
     <div class="wrapper">
       <div class="item">
         <img src="../../assets/images/index@3x.png" alt />
@@ -76,34 +74,18 @@
 <script>
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Banner from "../../widgets/Banner"
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Banner
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .index-container {
-  .banner {
-    width: 100%;
-    position: relative;
-    img {
-      width: 100%;
-    }
-    p {
-      // left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      position: absolute;
-      text-align: center;
-      font-size: 52px;
-      font-weight: bold;
-      color: #ffffff;
-    }
-  }
   .wrapper {
     display: flex;
     flex-wrap: wrap;

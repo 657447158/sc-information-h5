@@ -7,6 +7,21 @@ const routes = [
 		path: '/index',
 		name: 'index',
 		component: () => import('../pages/index/index.vue')
+	},
+	{
+		path: '/list',
+		name: 'list',
+		component: () => import('../pages/list/index.vue')
+	},
+	{
+		path: '/serviceInfo',
+		name: 'serviceInfo',
+		component: () => import('../pages/serviceInfo/index.vue')
+	},
+	{
+		path: '/recommend',
+		name: 'recommend',
+		component: () => import('../pages/recommend/index.vue')
 	}
 ]
 

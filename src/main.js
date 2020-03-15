@@ -5,14 +5,23 @@ import Ajax from './service'
 import Toast from './components/toast'
 import axios from 'axios'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueI18n from 'vue-i18n'
 import './components'
 import 'swiper/dist/css/swiper.css'
 import './assets/styles/layout.scss'
+
+import msg from '@/languages'
 
 Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false
 Vue.prototype.Ajax = Ajax
 Vue.use(Toast)
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+  locale: process.env.NODE_ENV,
+  messages: msg
+})
 
 router.beforeEach((to, from, next) => {
   let nodeList = document.querySelectorAll('.mask')
@@ -42,6 +51,7 @@ router.beforeEach((to, from, next) => {
 })
 
 new Vue({
+  i18n,
   router,
   render: h => h(App),
 }).$mount('#app')
