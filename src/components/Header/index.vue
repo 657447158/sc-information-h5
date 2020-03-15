@@ -2,7 +2,7 @@
   <div class="header">
     <img src="../../assets/images/logo@3x.png" alt class="logo" />
     <div class="header-right">
-      <span class="icon-mobile">&#xe6ae;</span>
+      <span class="icon-mobile">&#xe673;</span>
       <span class="menu">
         <i></i>
         <i></i>
@@ -25,7 +25,6 @@ export default {};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: lightblue;
   .logo {
     width: 128px;
     height: 60px;
