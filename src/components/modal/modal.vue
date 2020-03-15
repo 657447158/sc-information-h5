@@ -1,9 +1,9 @@
 <template>
     <transition enter-active-class="animation-fade-in" leave-active-class="animation-fade-out">
-        <div class="otc-modal" :class="className" v-show="state" :style="styles.parentDistance">
+        <div class="daq-modal" :class="className" v-show="state" :style="styles.parentDistance">
             <div class="mask" @click="hide"></div>
             <transition name="fade" :enter-active-class="enterActiveClass" :leave-active-class="leaveActiveClass">
-                <div class="otc-modal-content" v-show="state" :style="styles.childDistance">
+                <div class="daq-modal-content" v-show="state" :style="styles.childDistance">
                     <slot/>
                 </div>
             </transition>
@@ -12,7 +12,7 @@
 </template>
 <script>
     export default {
-        name: 'otc-modal',
+        name: 'daq-modal',
         data () {
             return {
                 state: this.show
@@ -94,7 +94,7 @@
     }
 </script>
 <style lang="scss">
-    .otc-modal {
+    .daq-modal {
         position: fixed;
         left: 0;
         right: 0;

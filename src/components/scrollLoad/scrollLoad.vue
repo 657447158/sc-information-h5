@@ -183,7 +183,7 @@
             display: block;
             width: 334px;
             height: 257px;
-            background: url('../../assets/images/no-data.png') no-repeat;
+            // background: url('../../assets/images/no-data.png') no-repeat;
             background-size: 100% 100%;
         }
     }

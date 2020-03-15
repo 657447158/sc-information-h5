@@ -12,17 +12,11 @@ module.exports = {
             patterns: []
         }
     },
-    devServer: {
-        port: 8000,
-        proxy: {
-            '/loanApi': {
-                changeOrigin: true,
-                target: 'http://129.211.29.207:8083/wallet/',
-                pathRewrite: {
-                    '^/loanApi': ''
-                }
-            }
-        }
-    },
-    publicPath: '/'
+    publicPath: '/',
+    pages: {
+        'index': {
+          title,
+          entry: 'src/pages/index/main.js'
+        },
+    }    
 }

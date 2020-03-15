@@ -1,13 +1,13 @@
 <template>
     <transition name="fade">
-        <div class="otc-dialog-wrap" v-if="show">
-            <div class="otc-dialog-mask mask" @click="close"></div>
-            <div class="otc-dialog">
-                <div class="otc-dialog-hd" v-if="title">{{title}}</div>
-                <div class="otc-dialog-bd" :style="'text-align:' + align" v-html="content" @click="ctFn"></div>
-                <div class="otc-dialog-ft" v-if="showConfirm">
-                    <!-- <div class="otc-dialog-cancel" v-if="cancelValue" @click="close">{{cancelValue}}</div> -->
-                    <div class="otc-dialog-comfirm" @click="open">{{comfirmValue}}</div>
+        <div class="daq-dialog-wrap" v-if="show">
+            <div class="daq-dialog-mask mask" @click="close"></div>
+            <div class="daq-dialog">
+                <div class="daq-dialog-hd" v-if="title">{{title}}</div>
+                <div class="daq-dialog-bd" :style="'text-align:' + align" v-html="content" @click="ctFn"></div>
+                <div class="daq-dialog-ft" v-if="showConfirm">
+                    <!-- <div class="daq-dialog-cancel" v-if="cancelValue" @click="close">{{cancelValue}}</div> -->
+                    <div class="daq-dialog-comfirm" @click="open">{{comfirmValue}}</div>
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
 <script>
 
     export default {
-        name: 'otc-dialog',
+        name: 'daq-dialog',
         props: {
             title: String,
             content: String,
@@ -77,7 +77,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    .otc-dialog {
+    .daq-dialog {
         padding: 80px 0 130px;
         width: 640px;
         border-radius: 10px;
