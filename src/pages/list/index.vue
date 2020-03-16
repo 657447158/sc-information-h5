@@ -2,6 +2,7 @@
   <div class="list-container">
     <Header/>
       <Banner/>
+      <Menu/>
       <List/>
       <List/>
       <List/>
@@ -15,13 +16,15 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import List  from "../../widgets/ListItem";
-import Banner from "../../widgets/Banner"
+import Banner from "../../widgets/Banner";
+import Menu from './Menu';
 export default {
   components: {
     Header,
     Footer,
     List,
-    Banner
+    Banner,
+    Menu
   }
 };
 </script>
