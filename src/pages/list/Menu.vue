@@ -10,8 +10,12 @@
           <li>
             <a href="https://www.baidu.com">Sichuan cuisine</a>
           </li>
-          <li><a href="https://www.baidu.com">Hot Pot</a></li>
-          <li><a href="https://www.baidu.com">Refreshments</a></li>
+          <li>
+            <a href="https://www.baidu.com">Hot Pot</a>
+          </li>
+          <li>
+            <a href="https://www.baidu.com">Refreshments</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -28,10 +32,19 @@
           <span>Tea</span>
           <span class="icon-mobile">&#xe6af;</span>
         </div>
-        <ul v-show="selected === 2" @click.stop="selectIndex(0)">
-          <li><a href="https://www.baidu.com">1Sichuan cuisine</a></li>
-          <li><a href="https://www.baidu.com">1Hot Pot</a></li>
-          <li><a href="https://www.baidu.com">2Refreshments</a></li>
+        <ul v-show="selected === 2">
+          <li>
+            <a href="https://www.baidu.com">1Sichuan cuisine</a>
+          </li>
+          <li>
+            <a href="https://www.baidu.com">1Hot Pot</a>
+          </li>
+          <li>
+            <a href="https://www.baidu.com">2Refreshments</a>
+          </li>
+          <li>
+            <div class="close" @click.stop="selectIndex(0)">×</div>
+          </li>
         </ul>
       </div>
     </div>
@@ -53,9 +66,9 @@ export default {
   },
   methods: {
     selectIndex(index) {
-        console.log("ddd",index)
+      console.log("ddd", index);
       this.selected = index;
-      console.log(this.selected)
+      console.log(this.selected);
     }
   }
 };
@@ -105,7 +118,7 @@ export default {
         right: 0;
         top: 0;
         bottom: 0;
-        background: #000000e6;
+        background:rgba(0,0,0,0.9);
         display: block;
         padding: 120px 15px 20px;
         color: #bbb;
@@ -114,7 +127,7 @@ export default {
         li {
           padding-top: 40px;
           a {
-              width: 100%;
+            width: 100%;
             font-size: 36px;
             line-height: 36px;
             text-align: left;
@@ -123,6 +136,22 @@ export default {
           }
           &:hover {
             color: #dcb499;
+          }
+          .close {
+            display: block;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            overflow: hidden;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 40px;
+            font-size: 48px;
+            font-weight: bold;
+            border-radius: 40px;
+            border: 0;
+            color: #fff;
           }
         }
       }
