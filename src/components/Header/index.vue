@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <img src="../../assets/images/logo@3x.png" alt class="logo" />
+    <router-link to="index">
+      <img src="@/assets/images/logo@3x.png" class="logo" />
+    </router-link>
     <div class="header-right">
       <!-- <span class="icon-mobile">&#xe673;</span> -->
       <span class="menu">
@@ -18,6 +20,9 @@ export default {};
 
 <style lang="scss" scoped>
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
@@ -25,6 +30,7 @@ export default {};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #fff;
   .logo {
     width: 128px;
     height: 60px;

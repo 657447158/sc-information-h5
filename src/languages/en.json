@@ -39,6 +39,12 @@
             "theme-slogan": "Nightlife"
         }
     },
+    "recommand": {
+        "pageTit": "Easy journey"
+    },
+    "service": {
+        "pageTit": "Practical information"
+    },
     "destination": {
         "pageTit": "Destination",
         "listTit": "Recommended tourist attractions"
