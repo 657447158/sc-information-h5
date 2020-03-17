@@ -22,6 +22,11 @@ const routes = [
 		path: '/recommend',
 		name: 'recommend',
 		component: () => import('../pages/recommend/index.vue')
+	},
+	{
+		path: '/destination',
+		name: 'destination',
+		component: () => import('../pages/destination/index.vue')
 	}
 ]
 
