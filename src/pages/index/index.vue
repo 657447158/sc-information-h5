@@ -6,41 +6,41 @@
       <img v-if="detail.navImage" :src="detail.navImage" />
     </div>
     <div class="wrapper">
-      <div class="item">
+      <a class="item" href="/list?code=djrm">
         <img src="../../assets/images/index@3x.png" alt />
         <div>
           <h3>{{$t('index.time.title')}}</h3>
           <p>{{$t('index.time.slogan')}}</p>
         </div>
-      </div>
-      <div class="item">
-        <img src="../../assets/images/index@3x.png" alt />
+      </a>
+     <a class="item" href="/list?code=xm">
+        <img src="../../assets/images/index1@3x.png" alt />
         <div>
           <h3>{{$t('index.art.title')}}</h3>
           <p>{{$t('index.art.slogan')}}</p>
         </div>
-      </div>
-      <div class="item">
-        <img src="../../assets/images/index@3x.png" alt />
+      </a>
+      <a class="item" href="/list?code=ys">
+        <img src="../../assets/images/index2@3x.png" alt />
         <div>
           <h3>{{$t('index.food.title')}}</h3>
           <p>{{$t('index.food.slogan')}}</p>
         </div>
-      </div>
-      <div class="item">
-        <img src="../../assets/images/index@3x.png" alt />
+      </a>
+       <a class="item" href="/list?code=yswh">
+        <img src="../../assets/images/index3@3x.png" alt />
         <div>
           <h3>{{$t('index.story.title')}}</h3>
           <p>{{$t('index.story.slogan')}}</p>
         </div>
-      </div>
-      <div class="item">
-        <img src="../../assets/images/index@3x.png" alt />
+      </a>
+      <a class="item" href="/list?code=mswh">
+        <img src="../../assets/images/index4@3x.png" alt />
         <div>
           <h3>{{$t('index.night.title')}}</h3>
           <p>{{$t('index.night.slogan')}}</p>
         </div>
-      </div>
+      </a>
     </div>
     <div class="type">
       <div class="item">
