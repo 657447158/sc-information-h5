@@ -32,6 +32,10 @@ const routes = [
 		path: '/chanel-detail',
 		name: 'channelDetail',
 		component: () => import('../pages/channel-detail/index.vue')
+	},{
+		path:'/article-detail',
+		name:'article-detail',
+		component: () => import('../pages/article-detail/index.vue')
 	}
 ]
 

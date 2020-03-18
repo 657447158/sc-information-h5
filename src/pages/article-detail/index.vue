@@ -2,7 +2,7 @@
   <div>
     <Header />
     <div class="detail">
-      <p class="detail-title">{{detail.name}}</p>
+      <p class="detail-title">{{detail.title}}</p>
       <div v-html="detail.content"></div>
     </div>
     <Footer />
@@ -19,13 +19,13 @@ export default {
   },
   data () {
     return {
-      code: this.$route.query.code,
+      id: this.$route.query.id,
       detail: {}
     }
   },
   mounted () {
-    this.Ajax.getChannelDetail({
-      channelCode: this.code
+    this.Ajax.getNewsDetail({
+      id: this.id
     }).then(res => {
       console.log(res);
       if (res.code === 0) {
@@ -42,9 +42,9 @@ export default {
     min-height: calc(100vh - 350px);
     background: #fff;
     &-title {
-      margin-bottom: 32px;
       font-size: 36px;
       color: #333;
+      margin-bottom: 32px;
       font-weight: bold;
       line-height: 54px;
     }
