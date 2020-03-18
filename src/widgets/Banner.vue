@@ -1,13 +1,18 @@
 <template>
   <div class="banner">
     <img :src="detail.channelImage" v-if="detail.channelImage" />
-    <p>{{detail.name}}</p>
+    <p>{{title || detail.name}}</p>
   </div>
 </template>
 <script>
 export default {
   props: {
-    code: ''
+    code: {
+      default: ''
+    },
+    title: {
+      default: ''
+    }
   },
   data () {
     return {

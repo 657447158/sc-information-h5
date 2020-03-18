@@ -1,7 +1,7 @@
 <template>
   <div class="service-info">
     <Header />
-    <Banner />
+    <Banner code="syxx" :title="$t('service.pageTit')" />
     <div class="info-wrapper">
       <router-link
         tag="div"

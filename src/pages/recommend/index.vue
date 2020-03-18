@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <Header />
-    <Banner />
+    <Banner code="ztlytj" :title="$t('recommand.pageTit')" />
     <div class="wrapper">
       <router-link
         tag="div"

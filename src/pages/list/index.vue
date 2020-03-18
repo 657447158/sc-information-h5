@@ -1,6 +1,6 @@
 <template>
   <div class="list-container">
-    <Header :code="code" />
+    <Header />
     <Banner :code="code" />
     <Menu :list="codeList" @getVal="getParams" />
     <scroll-load
@@ -86,7 +86,7 @@ export default {
   },
   watch: {
     $route: {
-      handler (to, from) {
+      handler (to) {
         if (to.name === 'list') {
           this.newsList = []
           this.code = to.query.code
