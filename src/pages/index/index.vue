@@ -4,6 +4,7 @@
     <!-- 顶部banner -->
     <div class="index-banner">
       <img v-if="detail.navImage" :src="detail.navImage" />
+      <p>{{$t('index.pageTit')}}</p>
     </div>
     <div class="wrapper">
       <router-link class="item" to="/list?code=yxhgj">
@@ -105,6 +106,7 @@ export default {
 <style lang="scss" scoped>
 .index-container {
   .index-banner {
+    position: relative;
     width: 100vw;
     height: 440px;
     background: #e2e2e2;
@@ -112,6 +114,17 @@ export default {
       display: block;
       font-size: 0;
       height: 100%;
+    }
+    p {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      font-size: 52px;
+      font-weight: bold;
+      color: #ffffff;
+      transform: translateY(-50%);
+      text-shadow: 3px 0 5px rgba(0, 0, 0, .2);
     }
   }
   .wrapper {

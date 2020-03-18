@@ -77,14 +77,14 @@ export default {
   },
   methods: {
     changeChannelCode(code){
-      console.log(code);
+      this.sceneryList = []
       this.channelCode = code;
+      this.params.channelCode = code
       this.getChannelDetail();
     },
     getList(list) {
       if (!list) return;
       this.sceneryList = this.sceneryList.concat(list);
-      console.log(this.sceneryList);
     },
     // 获取目的地详情
     getChannelDetail() {
