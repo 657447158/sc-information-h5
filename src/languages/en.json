@@ -1,5 +1,26 @@
 {
     "webTit": "四川省文化和旅游资讯网",
+    "app":{
+        "home":"Home",
+        "CarefreeGoodTimes":"Carefree good times",
+        "slowLift":"Slow life of literature and art",
+        "versionMap":"Version treasure map",
+        "destination": "Destination",
+        "themeRavel": "Theme ravel",
+        "hotSeason":"Hot season",
+        "panda":"Panda",
+        "foodExploration":"Food exploration",
+        "artCulture":"Art culture",
+        "folkCulture":"Folk Culture",
+        "museum":"Museum",
+        "practicalInformation":"Practical information",
+        "touristVISA":"Tourist VISA",
+        "cityTraffic":"City traffic",
+        "hotelAccomodation":"Hotel accomodation",
+        "travelAgencyInquiry":"Travel agency inquiry",
+        "caringService":"Caring service",
+        "healthAndLifeSafety":"Health and life safety"
+    },
     "header": {
         "nav": ["Destination", "Theme ravel", "Practical information", "Search"],
         "info": ["Tourist VISA", "City traffic", "Hotel accomodation", "Travel agency inquiry", "Caring service", "Health and life safety"]
