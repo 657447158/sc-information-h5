@@ -23,9 +23,11 @@ module.exports = {
             filterRule: rule => rule.selector.indexOf('::after') === -1 && rule.selector.indexOf('::before') === -1 && rule.selector.indexOf(':after') === -1 && rule.selector.indexOf(':before') === -1
         },
         "cssnano": {
-            "preset": "advanced",
-            "autoprefixer": false,
-            "postcss-zindex": false
+            "cssnano-preset-advanced": {
+                "preset": "advanced",
+                "autoprefixer": false,
+                "zindex": false
+            }
         }
     }
 }

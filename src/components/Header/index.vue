@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :class="!isHide && 'active'">
     <div class="main-conten">
       <router-link to="index">
         <img src="@/assets/images/logo@3x.png" class="logo" />
@@ -15,31 +15,31 @@
     </div>
     <div class="submenu" :class="{ 'hide': isHide }">
       <div class="menu-item">
-        <h5>{{$t('app.home')}}</h5>
-        <p>{{$t('app.CarefreeGoodTimes')}}</p>
-        <p>{{$t('app.slowLift')}}</p>
-        <p>{{$t('app.versionMap')}}</p>
+        <h5 @click="goTo('index')">{{$t('app.home')}}</h5>
+        <p @click="goTo('list?code=yxhgj')">{{$t('app.CarefreeGoodTimes')}}</p>
+        <p @click="goTo('list?code=wymsh')">{{$t('app.slowLift')}}</p>
+        <p @click="goTo('list?code=chcbt')">{{$t('app.versionMap')}}</p>
       </div>
       <div class="menu-item">
-        <h5>{{$t('app.destination')}}</h5>
+        <h5 @click="goTo('destination?code=mdd')">{{$t('app.destination')}}</h5>
       </div>
       <div class="menu-item">
-        <h5>{{$t('app.themeRavel')}}</h5>
-        <p>{{$t('app.hotSeason')}}</p>
-        <p>{{$t('app.panda')}}</p>
-        <p>{{$t('app.foodExploration')}}</p>
-        <p>{{$t('app.artCulture')}}</p>
-        <p>{{$t('app.folkCulture')}}</p>
-        <p>{{$t('app.museum')}}</p>
+        <h5 @click="goTo('recommend?code=recommend')">{{$t('app.themeRavel')}}</h5>
+        <p @click="goTo('list?code=djrm')">{{$t('app.hotSeason')}}</p>
+        <p @click="goTo('list?code=xm')">{{$t('app.panda')}}</p>
+        <p @click="goTo('list?code=ys')">{{$t('app.foodExploration')}}</p>
+        <p @click="goTo('list?code=yswh')">{{$t('app.artCulture')}}</p>
+        <p @click="goTo('list?code=mswh')">{{$t('app.folkCulture')}}</p>
+        <p @click="goTo('list?code=bwg')">{{$t('app.museum')}}</p>
       </div>
       <div class="menu-item">
-        <h5>{{$t('app.practicalInformation')}}</h5>
-        <p>{{$t('app.touristVISA')}}</p>
-        <p>{{$t('app.cityTraffic')}}</p>
-        <p>{{$t('app.hotelAccomodation')}}</p>
-        <p>{{$t('app.travelAgencyInquiry')}}</p>
-        <p>{{$t('app.caringService')}}</p>
-        <p>{{$t('app.healthAndLifeSafety')}}</p>
+        <h5 @click="goTo('serviceInfo?code=info')">{{$t('app.practicalInformation')}}</h5>
+        <p @click="goTo('channel-detail?code=qz')">{{$t('app.touristVISA')}}</p>
+        <p @click="goTo('channel-detail?code=jt')">{{$t('app.cityTraffic')}}</p>
+        <p @click="goTo('channel-detail?code=zs')">{{$t('app.hotelAccomodation')}}</p>
+        <p @click="goTo('channel-detail?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>
+        <p @click="goTo('channel-detail?code=fw')">{{$t('app.caringService')}}</p>
+        <p @click="goTo('channel-detail?code=jkhrsaq')">{{$t('app.healthAndLifeSafety')}}</p>
       </div>
     </div>
   </div>
@@ -55,6 +55,10 @@ export default {
   methods: {
     toggleMenu() {
       this.isHide = !this.isHide;
+    },
+    goTo (url) {
+      this.toggleMenu()
+      this.$router.push(url)
     }
   }
 };
@@ -64,10 +68,13 @@ export default {
 .header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 99;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
+  &.active {
+    z-index: 999999;
+  }
   .main-conten {
     height: 100%;
     padding: 0 20px;

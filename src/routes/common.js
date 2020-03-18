@@ -29,7 +29,7 @@ const routes = [
 		component: () => import('../pages/destination/index.vue')
 	},
 	{
-		path: '/chanel-detail',
+		path: '/channel-detail',
 		name: 'channelDetail',
 		component: () => import('../pages/channel-detail/index.vue')
 	},{

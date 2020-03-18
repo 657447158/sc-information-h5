@@ -3,11 +3,16 @@
     <Header />
     <Banner />
     <div class="wrapper">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <router-link
+        tag="div"
+        class="card"
+        v-for="item in list"
+        :key="item.id"
+        :to="{path: '/list', query: {code: item.channelCode}}"
+      >
+        <img :src="item.channelImage" alt />
+        <p>{{item.name}}</p>
+       </router-link>
     </div>
     <Footer />
   </div>
@@ -16,14 +21,26 @@
 <script>
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Card from "../../widgets/Card";
 import Banner from "../../widgets/Banner";
 export default {
   components: {
     Header,
     Footer,
-    Card,
     Banner
+  },
+  data () {
+    return {
+      list: []
+    }
+  },
+  mounted () {
+    this.Ajax.getChannelList({
+      channelCode: 'ztlytj'
+    }).then(res => {
+      if (res.code === 0) {
+        this.list = res.datas
+      }
+    })
   }
 };
 </script>
@@ -33,8 +50,32 @@ export default {
   width: 100%;
   height: 100%;
   .wrapper{
-    margin-top: 80px;
-    padding: 0 30px;
+    padding: 80px 30px;
+  }
+  .card {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    &~.card {
+      margin-top: 40px;
+    }
+    img {
+      display: block;
+      font-size: 0;
+      width: 100%;
+      height: 100%;
+    }
+    p {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: #ffffff;
+    }
   }
 }
 </style>
