@@ -137,6 +137,28 @@ img {
 	animation: rightOut ease .4s forwards
 }
 
+.animate-box .animate-item {
+	opacity: 0;
+}
+  
+.animate-box.active .animate-item {
+	animation: fadeInUp 1s linear;
+	animation-fill-mode: forwards;
+}
+  
+@keyframes fadeInUp {
+	from {
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+  
 @keyframes bottomIn {
 	0% {
 	  	transform: translateY(100%)

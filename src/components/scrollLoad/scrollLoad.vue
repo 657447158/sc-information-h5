@@ -290,7 +290,6 @@ export default {
     animation: rotate 2s linear infinite;
   }
 }
-
 @keyframes rotate {
   0% {
     transform: rotate(0)

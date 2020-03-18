@@ -1,70 +1,127 @@
 <template>
   <div class="destination-container">
     <Header />
-    <Banner />
+    <Banner code="mdd" :title="$t('destination.pageTit')"/>
     <div class="top">
       <div class="title">Choose destination</div>
       <div class="menu">
-        <span class="active">Cheng du</span>
-        <span>Mian yang</span>
-        <span>Nei jiang</span>
-        <span>Nan chong</span>
-        <span>Le shan</span>
+        <span
+          v-for="item in list"
+          :key="item.id"
+          :class="{'active':item.id === detail.id}"
+          @click="changeChannelCode(item.channelCode)"
+        >{{item.name}}</span>
       </div>
-      <div class="desc-title">Cheng du</div>
+      <div class="desc-title">{{detail.name}}</div>
       <div class="content">
-        <p>
-          ChengDu is a wonderful place located in Sichuan province.
-          This city is well decorated and designed which attrects lots of
-          tourists every year.
-        </p>
-        <p>
-          Why not come to this amazing city to get a rest and have a look
-          of these beautiful sceneries.
-          Just cherish this hardly-get chance.Don't hestitate.
-        </p>
+        <p>{{detail.content}}</p>
       </div>
       <div class="arrow icon-mobile">&#xe6af;</div>
     </div>
     <div class="bottom">
-      <h3>Recommended tourist  attractions</h3>
-      <div class="list-box">
-          <div class="item">
-              <img src="../../assets/images/panda@3x.png" alt="">
-              <h5>Chengdu Panda Base</h5>
-          </div>
-          <div class="item">
-              <img src="../../assets/images/panda@3x.png" alt="">
-              <h5>Chengdu Panda Base</h5>
-          </div>
-          <div class="item">
-              <img src="../../assets/images/panda@3x.png" alt="">
-              <h5>Chengdu Panda Base</h5>
-          </div>
-          <div class="item">
-              <img src="../../assets/images/panda@3x.png" alt="">
-              <h5>Chengdu Panda Base</h5>
-          </div>
-
-          <div class="item">
-              <img src="../../assets/images/panda@3x.png" alt="">
-              <h5>Chengdu Panda Base</h5>
-          </div>
-      </div>
+      <h3>Recommended tourist attractions</h3>
+      <scroll-load
+        requestName="getNewsList"
+        :params="params"
+        :limit="6"
+        :pFlag="requestState"
+        @list="getList"
+      >
+        <div class="list-box" slot="list">
+          <router-link
+            tag="div"
+            :to="{path:`article-detail?id=${item.id}`}"
+            class="item des-list-item animate-item"
+            v-for="(item) in sceneryList"
+            :key="item.id"
+          >
+            <img :src="item.coverFourToThree" alt />
+            <h5>{{item.title}}</h5>
+          </router-link>
+        </div>
+      </scroll-load>
     </div>
     <Footer />
   </div>
 </template>
 
 <script>
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Banner from "../../widgets/Banner";
+import ScrollLoad from "@/components/scrollLoad/scrollLoad.vue";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Banner from "@/widgets/Banner";
+import Ajax from "@/service";
+import Tools from "@/utils/tools.js";
+
 export default {
   components: {
     Header,
     Footer,
-    Banner
+    Banner,
+    ScrollLoad
+  },
+  data() {
+    return {
+      list: [],
+      channelCode: Tools.getUrlParams("channelCode"),
+      detail: {},
+      sceneryList: [],
+      params: {
+        channelCode: ""
+      },
+      requestState: false
+    };
+  },
+  mounted() {
+    this.getChannelList();
+  },
+  methods: {
+    changeChannelCode(code){
+      console.log(code);
+      this.channelCode = code;
+      this.getChannelDetail();
+    },
+    getList(list) {
+      if (!list) return;
+      this.sceneryList = this.sceneryList.concat(list);
+      console.log(this.sceneryList);
+    },
+    // 获取目的地详情
+    getChannelDetail() {
+      Ajax.getChannelDetail({
+        channelCode: this.channelCode
+      }).then(res => {
+        if (res.code === 0) {
+          this.detail = res.data;
+        }
+      });
+    },
+    // 获取目的地列表(栏目)
+    getChannelList() {
+      Ajax.getChannelList({
+        channelCode: "mdd",
+        limitPage: 99
+      }).then(res => {
+        if (res.code === 0) {
+          this.list = res.datas;
+          this.channelCode =
+            this.channelCode || (res.datas[0] && res.datas[0].channelCode);
+          this.getChannelDetail();
+          this.params.channelCode = this.channelCode;
+          this.requestState = true;
+        }
+      });
+    },
+    getDestinationList() {
+      Ajax.getDestinationList({
+        limitPage: 10
+      }).then(res => {
+        if (res.code === 0) {
+          this.list = res.datas;
+          console.log(this.list);
+        }
+      });
+    }
   }
 };
 </script>
@@ -133,36 +190,37 @@ export default {
         font-size: 24px;
         line-height: 30px;
         color: #666666;
+        word-break: break-all;
       }
     }
-    .arrow{
-      padding:50px 30px 100px;
+    .arrow {
+      padding: 50px 30px 100px;
       font-size: 12px;
       color: #999999;
     }
   }
-  .bottom{
+  .bottom {
     padding: 120px 30px 20px;
-     background: #ffffff;
-    h3{
+    background: #ffffff;
+    h3 {
       font-size: 46px;
       font-weight: bold;
       color: #333333;
       padding-bottom: 60px;
     }
-    .list-box{
-      .item{
-         img{
-           width: 690px;
-           height: 450px;
-         }
-         h5{
-           margin-top: 30px;
-           margin-bottom: 70px;
-           font-size: 36px;
-           font-weight: normal;
-           color: #333333;
-         }
+    .list-box {
+      .item {
+        img {
+          width: 690px;
+          height: 450px;
+        }
+        h5 {
+          margin-top: 30px;
+          margin-bottom: 70px;
+          font-size: 36px;
+          font-weight: normal;
+          color: #333333;
+        }
       }
     }
   }
