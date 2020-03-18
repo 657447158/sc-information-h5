@@ -16,6 +16,9 @@
           <li>
             <a href="https://www.baidu.com">Refreshments</a>
           </li>
+          <li>
+            <div class="close" @click.stop="selectIndex(0)">×</div>
+          </li>
         </ul>
       </div>
     </div>
