@@ -27,6 +27,11 @@ const routes = [
 		path: '/destination',
 		name: 'destination',
 		component: () => import('../pages/destination/index.vue')
+	},
+	{
+		path: '/chanel-detail',
+		name: 'channelDetail',
+		component: () => import('../pages/channel-detail/index.vue')
 	}
 ]
 

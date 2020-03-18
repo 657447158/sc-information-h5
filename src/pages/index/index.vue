@@ -42,38 +42,24 @@
         </div>
       </a>
     </div>
+
     <div class="type">
-      <div class="item">
-        <i class="icon-mobile">&#xe666;</i>
-        <p>Tourist VISA</p>
-      </div>
-      <div class="item">
-        <i class="icon-mobile">&#xe66f;</i>
-        <p class="desc">City traffic</p>
-      </div>
-      <div class="item">
-        <i class="icon-mobile">&#xe66c;</i>
-        <p class="desc">Hotel accomodation</p>
-      </div>
-      <div class="item">
-        <i class="icon-mobile">&#xe675;</i>
-        <p>Travel agency inquiry</p>
-      </div>
-      <div class="item">
-        <i class="icon-mobile">&#xe672;</i>
-        <p class="desc">Caring service</p>
-      </div>
-      <div class="item">
-        <i class="icon-mobile">&#xe668;</i>
-        <p class="desc">Health and life safety</p>
-      </div>
+      <router-link 
+        class="item"
+        v-for="item in informationList"
+        :key="item.id"
+        :to="`chanel-detail?code=${item.channelCode}`"
+      >
+        <i class="icon-mobile" v-html="item.metaDescription"></i>
+        <p>{{item.name}}</p>
+      </router-link>
     </div>
+
     <Footer />
   </div>
 </template>
 
 <script>
-import Ajax from '@/service'
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 export default {
@@ -83,17 +69,35 @@ export default {
   },
   data () {
     return {
-      detail: {}
+      detail: {},
+      informationList: []
     }
   },
   mounted () {
-    Ajax.getChannelDetail({
-      channelCode: 'sy'
-    }).then(res => {
-      if (res.code === 0) {
-        this.detail = res.data
-      }
-    })
+    this.getChannelDetail()
+    this.getChannelCodeByInformation()
+  },
+  methods: {
+    // 获取首页栏目导航图
+    getChannelDetail () {
+      this.Ajax.getChannelDetail({
+        channelCode: 'sy'
+      }).then(res => {
+        if (res.code === 0) {
+          this.detail = res.data
+        }
+      })
+    },
+    // 获取实用信息下的子栏目
+    getChannelCodeByInformation () {
+      this.Ajax.getChannelList({
+        channelCode: 'syxx'
+      }).then(res => {
+        if (res.code === 0) {
+          this.informationList = res.datas
+        }
+      })
+    }
   }
 };
 </script>

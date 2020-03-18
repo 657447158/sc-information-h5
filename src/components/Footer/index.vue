@@ -2,9 +2,9 @@
   <div class="footer">
     <div class="main">
       <div class="link-box">
-        <span class="icon-mobile">&#xe709;</span>
-        <span class="icon-mobile">&#xe67a;</span>
-        <span class="icon-mobile">&#xe69b;</span>
+        <a class="icon-mobile" href="https://www.facebook.com/tsichuan/">&#xe709;</a>
+        <a class="icon-mobile" href="https://twitter.com/Amazingsichuan">&#xe67a;</a>
+        <a class="icon-mobile" href="https://www.instagram.com/visit_sichuan/">&#xe69b;</a>
       </div>
       <p class="copy-right">Sichuan Tourism Information Center</p>
     </div>
@@ -64,7 +64,7 @@
   .link-box {
     // margin-top: 60px;
     display: flex;
-    span {
+    a {
       width: 50px;
       height: 50px;
       font-size: 20px;

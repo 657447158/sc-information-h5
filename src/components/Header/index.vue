@@ -31,6 +31,7 @@ export default {};
   justify-content: space-between;
   align-items: center;
   background: #fff;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, .2);
   .logo {
     width: 128px;
     height: 60px;
