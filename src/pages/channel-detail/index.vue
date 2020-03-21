@@ -3,50 +3,58 @@
     <Header />
     <div class="detail">
       <p class="detail-title">{{detail.name}}</p>
-      <div v-html="detail.content"></div>
+      <div v-html="detail.content" class="content"></div>
     </div>
     <Footer />
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header/index'
-import Footer from '@/components/Footer/index'
+import Header from "@/components/Header/index";
+import Footer from "@/components/Footer/index";
 export default {
   components: {
     Header,
     Footer
   },
-  data () {
+  data() {
     return {
       code: this.$route.query.code,
       detail: {}
-    }
+    };
   },
-  mounted () {
+  mounted() {
     this.Ajax.getChannelDetail({
       channelCode: this.code
     }).then(res => {
       console.log(res);
       if (res.code === 0) {
-        this.detail = res.data
+        this.detail = res.data;
+        this.$nextTick(() => {
+          console.log("--");
+          let imgList = document.querySelectorAll(".content img");
+          for (let i = 0; i < imgList.length; i++) {
+            imgList[i].style.height = "auto";
+          }
+        });
       }
-    })
+    });
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  .detail {
-    padding: 60px 30px;
-    min-height: calc(100vh - 350px);
-    background: #fff;
-    &-title {
-      margin-bottom: 32px;
-      font-size: 36px;
-      color: #333;
-      font-weight: bold;
-      line-height: 54px;
-    }
+.detail {
+  padding: 60px 30px;
+  min-height: calc(100vh - 350px);
+  background: #fff;
+  overflow: hidden;
+  &-title {
+    margin-bottom: 32px;
+    font-size: 36px;
+    color: #333;
+    font-weight: bold;
+    line-height: 54px;
   }
+}
 </style>

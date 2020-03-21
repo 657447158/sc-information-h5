@@ -63,6 +63,8 @@ $navActiveColor: $themeColor;
     overflow : hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
+    line-clamp: $line;
     -webkit-line-clamp: $line;
+    box-orient: vertical;
     -webkit-box-orient: vertical;
 }

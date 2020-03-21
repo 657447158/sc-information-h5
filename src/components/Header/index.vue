@@ -68,18 +68,19 @@ export default {
 .header {
   position: sticky;
   top: 0;
-  z-index: 99;
+  // z-index: 99;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
+  // box-shadow: 4px 4px 14px 7px rgba(0, 0, 0, 0.1);
   &.active {
-    z-index: 999999;
+    z-index: 10000;
   }
   .main-conten {
     height: 100%;
     padding: 0 20px;
     display: flex;
-    z-index: 100;
+    z-index: 10001;
     justify-content: space-between;
     align-items: center;
     background: #fff;
@@ -118,11 +119,11 @@ export default {
     padding: 0 40px;
     position: absolute;
     left: 0;
-    top: 100%;
+    top: 120px;
     padding-bottom: 80px;
     // height: 100px;
     background: #ffffff;
-    z-index: -1;
+    z-index: 1;
     // height: 374px;
     transition: height 0.3s;
     overflow: scroll;

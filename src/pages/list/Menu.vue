@@ -11,7 +11,7 @@
           class="title"
           @click="chooseItem(index)"
         >
-          <span>{{item.name}}</span>
+          <div class="name">{{item.name}}</div>
           <span class="icon-mobile" v-if="item.children.length">&#xe6af;</span>
         </div>
       </div>
@@ -60,6 +60,9 @@ export default {
         this.pSelectIndex = index
         this.$emit('getVal', this.list[index].chanelCode)
       } else {
+        let body = document.querySelector("body");
+        body.style.height="100vh";
+        body.style.overflow = "hidden";
         if (this.pSelectIndex === index) {
           this.cSelectIndex = this.coypCSelectIndex
         } else {
@@ -86,7 +89,10 @@ export default {
       this.closeModal()
     },
     closeModal () {
-      this.modalShow = false
+      this.modalShow = false;
+       let body = document.querySelector("body");
+        body.style.height="auto";
+        body.style.overflow = "scroll";
     }
   }
 };
@@ -95,18 +101,21 @@ export default {
 .submenu {
   position: sticky;
   top: 120px;
-  z-index: 999;
+  // z-index: 999;
+  background: red;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content:center;
   border-bottom: 1px solid #e2e2e2;
   background: #f9f9f9;
+  overflow-x: scroll;
   .menu-item {
     position: relative;
-    flex: 1;
+    // min-width: 25%;
+    // flex: 1;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -125,6 +134,7 @@ export default {
       justify-items: center;
       border: 1px solid transparent;
       box-sizing: border-box;
+      padding: 0 40px;
     }
     &~.menu-item::after {
       content: "";
@@ -142,6 +152,10 @@ export default {
       text-align: center;
       color: #666666;
       font-size: 24px;
+      .name{
+        white-space: nowrap;
+        word-break: keep-all;
+      }
       .icon-mobile {
         margin-left: 12px;
         font-size: 12spx;
@@ -155,11 +169,13 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background:rgba(0,0,0,0.9);
+    background:rgba(0,0,0,0.5);
+    // background: red;
     display: block;
     padding: 120px 30px;
     color: #bbb;
     transition: all 3s linear;
+    z-index:9999;
     li {
       padding-top: 40px;
       width: 100%;

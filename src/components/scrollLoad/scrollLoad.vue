@@ -2,7 +2,7 @@
   <div class="daq-scroll-load" :class="classname">
     <slot name="list" />
     <p class="daq-no-data-text" v-if="noMore">
-      <span>没有更多了</span>
+      <span>{{$t('app.noMore')}}</span>
     </p>
     <div class="daq-loading" v-if="!noMore && !noData">
       <span class="icon-mobile">&#xe679;</span>

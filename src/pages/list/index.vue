@@ -130,7 +130,10 @@ export default {
   .summary {
     margin-top: 20px;
     font-size: 26px;
+    line-height: 36px;
     color: #666;
+    line-clamp: 2;
+    
     @include ellipsisLn(2);
   }
 }

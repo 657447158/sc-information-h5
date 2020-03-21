@@ -19,7 +19,8 @@
         "hotelAccomodation":"Hotel accomodation",
         "travelAgencyInquiry":"Travel agency inquiry",
         "caringService":"Caring service",
-        "healthAndLifeSafety":"Health and life safety"
+        "healthAndLifeSafety":"Health and life safety",
+        "noMore":"No more"
     },
     "header": {
         "nav": ["Destination", "Theme ravel", "Practical information", "Search"],
