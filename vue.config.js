@@ -12,5 +12,5 @@ module.exports = {
             patterns: []
         }
     },
-    publicPath: '/',
+    publicPath: './',
 }
