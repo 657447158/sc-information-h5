@@ -27,16 +27,8 @@ export default {
     this.Ajax.getNewsDetail({
       id: this.id
     }).then(res => {
-      console.log(res);
       if (res.code === 0) {
         this.detail = res.data;
-        this.$nextTick(() => {
-          console.log("--")
-          let imgList = document.querySelectorAll(".content img");
-          for (let i = 0; i < imgList.length; i++) {
-            imgList[i].style.height="auto"
-          }
-        });
       }
     });
   }
@@ -56,6 +48,12 @@ export default {
     margin-bottom: 32px;
     font-weight: bold;
     line-height: 54px;
+  }
+  .content {
+    /deep/ img {
+      max-width: 100%;
+      height: auto!important;
+    }
   }
 }
 </style>
