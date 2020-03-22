@@ -1,17 +1,14 @@
 <template>
   <div>
     <div class="submenu" v-if="list.length">
-      <div 
+      <div
         class="menu-item"
         :class="pSelectIndex === index && 'active'"
         v-for="(item, index) in list"
         :key="item.id"
       >
         <div class="item-box">
-          <div 
-            class="title"
-            @click="chooseItem(index)"
-          >
+          <div class="title" @click="chooseItem(index)">
             <div class="name">{{item.name}}</div>
             <span class="icon-mobile" v-if="item.children.length">&#xe6af;</span>
           </div>
@@ -21,7 +18,7 @@
     <div class="modal-box" v-show="modalShow">
       <div class="close" @click.stop="closeModal">×</div>
       <ul>
-        <li 
+        <li
           :class="cSelectIndex === index && 'active'"
           v-for="(sub, index) in subList"
           :key="sub.id"
@@ -33,7 +30,7 @@
 </template>
 <script>
 export default {
-  props: ['list'],
+  props: ["list"],
   data() {
     return {
       modalShow: false,
@@ -41,14 +38,15 @@ export default {
       subList: [],
       pSelectIndex: 0,
       cSelectIndex: 0,
-      coypCSelectIndex: 0
+      coypCSelectIndex: 0,
+      scroll:true,
     };
   },
   watch: {
     list: {
-      handler (val) {
+      handler(val) {
         if (val.length) {
-          this.subList = val[this.selected].children
+          this.subList = val[this.selected].children;
         }
       },
       deep: true,
@@ -56,45 +54,58 @@ export default {
     }
   },
   methods: {
-    chooseItem (index) {
+    chooseItem(index) {
       if (!this.list[index].children.length) {
-        if (this.pSelectIndex === index) return
-        this.pSelectIndex = index
-        this.$emit('getVal', this.list[index].chanelCode)
+        if (this.pSelectIndex === index) return;
+        this.pSelectIndex = index;
+        this.$emit("getVal", this.list[index].chanelCode);
       } else {
-        let body = document.querySelector("body");
-        body.style.height="100vh";
-        body.style.overflow = "hidden";
+        this.scroll = false;
+        this.iosTrouchFn();
         if (this.pSelectIndex === index) {
-          this.cSelectIndex = this.coypCSelectIndex
+          this.cSelectIndex = this.coypCSelectIndex;
         } else {
-          this.cSelectIndex = ''
+          this.cSelectIndex = "";
         }
-        this.subList = this.list[index].children
-        this.modalShow = true
+        this.subList = this.list[index].children;
+        this.modalShow = true;
       }
     },
-    chooseSubItem (index, code) {
-      console.log('code', code);
-      this.cSelectIndex = index
-      this.coypCSelectIndex = index
+    chooseSubItem(index, code) {
+      console.log("code", code);
+      this.cSelectIndex = index;
+      this.coypCSelectIndex = index;
       for (let i = 0; i < this.list.length; i++) {
-        let item = this.list[i]
+        let item = this.list[i];
         for (let j = 0; j < item.children.length; j++) {
-          let sub_item = item.children[j]
+          let sub_item = item.children[j];
           if (code === sub_item.chanelCode) {
-            this.pSelectIndex = i
+            this.pSelectIndex = i;
           }
         }
       }
-      this.$emit('getVal', code)
-      this.closeModal()
+      this.$emit("getVal", code);
+      this.closeModal();
     },
-    closeModal () {
+    closeModal() {
       this.modalShow = false;
-       let body = document.querySelector("body");
-        body.style.height="auto";
-        body.style.overflow = "scroll";
+      this.scroll =true;
+      this.iosTrouchFn();
+    },
+    iosTrouchFn() {
+      const _this = this;
+      
+      document.body.addEventListener(
+        "touchmove",
+        function(e) {
+          if (!_this.scroll) {
+            e.preventDefault(); //阻止默认事件(上下滑动)
+          } else {
+            document.body.removeEventListener("touchmove",function(){alert("去除电梯")});
+          }
+        },
+        { passive: false }
+      ); //passive防止阻止默认事件不生效
     }
   }
 };
@@ -111,7 +122,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   border-bottom: 1px solid #e2e2e2;
   background: #f9f9f9;
   overflow-x: scroll;
@@ -139,7 +150,7 @@ export default {
       box-sizing: border-box;
       padding: 0 40px;
     }
-    &~.menu-item::after {
+    & ~ .menu-item::after {
       content: "";
       position: absolute;
       top: 39px;
@@ -155,7 +166,7 @@ export default {
       text-align: center;
       color: #666666;
       font-size: 24px;
-      .name{
+      .name {
         white-space: nowrap;
         word-break: keep-all;
       }
@@ -173,12 +184,14 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background:rgba(0,0,0,0.5);
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  // background: red;
   display: block;
   padding: 120px 30px;
   color: #bbb;
   transition: all 3s linear;
-  z-index:9999;
+  z-index: 9999;
   li {
     padding-top: 40px;
     width: 100%;
