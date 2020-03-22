@@ -1,18 +1,20 @@
 <template>
-  <div class="submenu" v-if="list.length">
-    <div 
-      class="menu-item"
-      :class="pSelectIndex === index && 'active'"
-      v-for="(item, index) in list"
-      :key="item.id"
-    >
-      <div class="item-box">
-        <div 
-          class="title"
-          @click="chooseItem(index)"
-        >
-          <div class="name">{{item.name}}</div>
-          <span class="icon-mobile" v-if="item.children.length">&#xe6af;</span>
+  <div>
+    <div class="submenu" v-if="list.length">
+      <div 
+        class="menu-item"
+        :class="pSelectIndex === index && 'active'"
+        v-for="(item, index) in list"
+        :key="item.id"
+      >
+        <div class="item-box">
+          <div 
+            class="title"
+            @click="chooseItem(index)"
+          >
+            <div class="name">{{item.name}}</div>
+            <span class="icon-mobile" v-if="item.children.length">&#xe6af;</span>
+          </div>
         </div>
       </div>
     </div>
@@ -101,7 +103,7 @@ export default {
 .submenu {
   position: sticky;
   top: 120px;
-  // z-index: 999;
+  z-index: 99;
   background: red;
   width: 100%;
   height: 120px;
@@ -163,46 +165,46 @@ export default {
       }
     }
   }
-  .modal-box {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background:rgba(0,0,0,0.5);
-    // background: red;
+}
+.modal-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background:rgba(0,0,0,0.5);
+  // background: red;
+  display: block;
+  padding: 120px 30px;
+  color: #bbb;
+  transition: all 3s linear;
+  z-index:9999;
+  li {
+    padding-top: 40px;
+    width: 100%;
+    font-size: 36px;
+    line-height: 36px;
+    text-align: left;
+    color: #fff;
+    &.active {
+      color: $themeColor;
+    }
+  }
+  .close {
     display: block;
-    padding: 120px 30px;
-    color: #bbb;
-    transition: all 3s linear;
-    z-index:9999;
-    li {
-      padding-top: 40px;
-      width: 100%;
-      font-size: 36px;
-      line-height: 36px;
-      text-align: left;
-      color: #fff;
-      &.active {
-        color: $themeColor;
-      }
-    }
-    .close {
-      display: block;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      overflow: hidden;
-      box-sizing: border-box;
-      text-align: center;
-      line-height: 40px;
-      font-size: 48px;
-      font-weight: bold;
-      border-radius: 40px;
-      border: 0;
-      color: #fff;
-    }
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 40px;
+    font-size: 48px;
+    font-weight: bold;
+    border-radius: 40px;
+    border: 0;
+    color: #fff;
   }
 }
 </style>
