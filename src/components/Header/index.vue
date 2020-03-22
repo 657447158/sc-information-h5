@@ -67,6 +67,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   z-index: 99;
   width: 100%;

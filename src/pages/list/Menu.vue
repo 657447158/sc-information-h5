@@ -102,6 +102,7 @@ export default {
 <style lang="scss" scoped>
 .submenu {
   position: sticky;
+  position: -webkit-sticky;
   top: 120px;
   z-index: 99;
   background: red;
