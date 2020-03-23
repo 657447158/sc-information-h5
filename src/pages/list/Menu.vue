@@ -72,7 +72,6 @@ export default {
       }
     },
     chooseSubItem(index, code) {
-      console.log("code", code);
       this.cSelectIndex = index;
       this.coypCSelectIndex = index;
       for (let i = 0; i < this.list.length; i++) {
@@ -101,7 +100,7 @@ export default {
           if (!_this.scroll) {
             e.preventDefault(); //阻止默认事件(上下滑动)
           } else {
-            document.body.removeEventListener("touchmove",function(){alert("去除电梯")});
+            document.body.removeEventListener("touchmove",function(){console.log("去除电梯")});
           }
         },
         { passive: false }
@@ -179,14 +178,13 @@ export default {
   }
 }
 .modal-box {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  // background: red;
   display: block;
   padding: 120px 30px;
   color: #bbb;
