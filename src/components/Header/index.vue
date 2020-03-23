@@ -39,7 +39,7 @@
         <p @click="goTo('channel-detail?code=zs')">{{$t('app.hotelAccomodation')}}</p>
         <p @click="goTo('channel-detail?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>
         <p @click="goTo('channel-detail?code=fw')">{{$t('app.caringService')}}</p>
-        <p @click="goTo('channel-detail?code=jkhrsaq')">{{$t('app.healthAndLifeSafety')}}</p>
+        <p @click="goTo('channel-detail?code=jkhrsaq')" style="padding-bottom:40px">{{$t('app.healthAndLifeSafety')}}</p>
       </div>
     </div>
   </div>
@@ -138,13 +138,16 @@ export default {
     .menu-item {
       h5 {
         margin-top: 60px;
+        margin-bottom: 20px;
         font-size: 32px;
         color: #333333;
       }
       p {
-        margin-top: 40px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         font-size: 28px;
         color: #666666;
+        // background: red;
         font-weight: normal;
       }
     }

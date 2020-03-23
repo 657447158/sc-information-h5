@@ -14,9 +14,9 @@
       </div>
       <div class="desc-title">{{detail.name}}</div>
       <div class="content">
-        <p>{{detail.content}}</p>
+        <p v-html="detail.content"></p>
       </div>
-      <div class="arrow icon-mobile">&#xe6af;</div>
+      <div class="arrow icon-mobile" v-if="detail.content.length">&#xe6af;</div>
     </div>
     <div class="bottom">
       <h3>Recommended tourist attractions</h3>

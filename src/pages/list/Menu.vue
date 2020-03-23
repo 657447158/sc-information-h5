@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="submenu" v-if="list.length">
+    <div class="submenu" v-if="list.length"
+      :class="[ list.length <=3 ? 'short' : '']"
+    >
       <div
         class="menu-item"
         :class="pSelectIndex === index && 'active'"
@@ -121,10 +123,14 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border-bottom: 1px solid #e2e2e2;
   background: #f9f9f9;
   overflow-x: scroll;
+  overflow-y: hidden;
+  &.short{
+    justify-content: center;
+  }
   .menu-item {
     position: relative;
     // min-width: 25%;
@@ -162,7 +168,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      text-align: right;
       color: #666666;
       font-size: 24px;
       .name {
