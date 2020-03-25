@@ -39,7 +39,7 @@
         <p @click="goTo('list?code=zs')">{{$t('app.hotelAccomodation')}}</p>
         <p @click="goTo('travel-agency?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>
         <p @click="goTo('channel-detail?code=fw')">{{$t('app.caringService')}}</p>
-        <p @click="goTo('list?code=jkhrsaq')" style="padding-bottom:40px">{{$t('app.healthAndLifeSafety')}}</p>
+        <p @click="goTo('list?code=jkhrsaq')" style="padding-bottom:80px">{{$t('app.healthAndLifeSafety')}}</p>
       </div>
     </div>
   </div>
