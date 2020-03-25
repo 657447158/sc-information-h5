@@ -1,3 +1,6 @@
+const msg = require('./src/languages')
+const title = msg[process.env.NODE_ENV].webTit
+
 module.exports = {
     css: {
         loaderOptions: {
@@ -13,4 +16,10 @@ module.exports = {
         }
     },
     publicPath: './',
+    pages: {
+        index: {
+            title,
+            entry: 'src/main.js'
+        }
+    }
 }
