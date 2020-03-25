@@ -36,10 +36,10 @@
         <h5 @click="goTo('serviceInfo?code=info')">{{$t('app.practicalInformation')}}</h5>
         <p @click="goTo('channel-detail?code=qz')">{{$t('app.touristVISA')}}</p>
         <p @click="goTo('channel-detail?code=jt')">{{$t('app.cityTraffic')}}</p>
-        <p @click="goTo('channel-detail?code=zs')">{{$t('app.hotelAccomodation')}}</p>
-        <p @click="goTo('channel-detail?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>
+        <p @click="goTo('list?code=zs')">{{$t('app.hotelAccomodation')}}</p>
+        <p @click="goTo('travel-agency?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>
         <p @click="goTo('channel-detail?code=fw')">{{$t('app.caringService')}}</p>
-        <p @click="goTo('channel-detail?code=jkhrsaq')" style="padding-bottom:40px">{{$t('app.healthAndLifeSafety')}}</p>
+        <p @click="goTo('list?code=jkhrsaq')" style="padding-bottom:40px">{{$t('app.healthAndLifeSafety')}}</p>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@ export default {
   }
   .submenu {
     width: 100%;
-    height:1214px;
+    height: 1214px;
     box-sizing: border-box;
     padding: 0 40px;
     position: absolute;

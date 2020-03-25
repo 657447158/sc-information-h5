@@ -45,15 +45,24 @@
     </div>
 
     <div class="type">
-      <router-link 
+      <div
         class="item"
         v-for="item in informationList"
         :key="item.id"
-        :to="`channel-detail?code=${item.channelCode}`"
       >
-        <i class="icon-mobile" v-html="item.metaDescription"></i>
-        <p>{{item.name}}</p>
-      </router-link>
+        <router-link :to="`list?code=${item.channelCode}`" v-if="item.channelCode === 'zs' || item.channelCode ==='jkhrsaq'">
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <p>{{item.name}}</p>
+        </router-link>
+        <router-link :to="`travel-agency?code=${item.channelCode}`" v-else-if="item.channelCode === 'lxs'">
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <p>{{item.name}}</p>
+        </router-link>
+        <router-link :to="`channel-detail?code=${item.channelCode}`" v-else>
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <p>{{item.name}}</p>
+        </router-link>
+      </div>
     </div>
 
     <Footer />
@@ -169,7 +178,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 100px;
-    .item{
+    .item a{
       display: flex;
       flex-direction: column;
       align-items: center;

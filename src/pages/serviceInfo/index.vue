@@ -3,17 +3,39 @@
     <Header />
     <Banner code="syxx" :title="$t('service.pageTit')" />
     <div class="info-wrapper">
-      <router-link
-        tag="div"
+      <div
         class="info-item"
         v-for="item in list"
         :key="item.id"
-        :to="{path: '/channel-detail', query: {code: item.channelCode}}"
       >
-        <i class="icon-mobile" v-html="item.metaDescription"></i>
-        <h5>{{item.name}}</h5>
-        <p>{{item.summary}}</p>
-      </router-link>
+        <router-link
+          tag="div"
+          :to="{path: '/list', query: {code: item.channelCode}}"
+          v-if="item.channelCode === 'zs' || item.channelCode === 'jkhrsaq'"
+        >
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <h5>{{item.name}}</h5>
+          <p>{{item.summary}}</p>
+        </router-link>
+        <router-link
+          tag="div"
+          :to="{path: '/travel-agency', query: {code: item.channelCode}}"
+          v-else-if="item.channelCode === 'lxs'"
+        >
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <h5>{{item.name}}</h5>
+          <p>{{item.summary}}</p>
+        </router-link>
+        <router-link
+          tag="div"
+          :to="{path: '/channel-detail', query: {code: item.channelCode}}"
+          v-else
+        >
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <h5>{{item.name}}</h5>
+          <p>{{item.summary}}</p>
+        </router-link>
+      </div>
     </div>
     <Footer />
   </div>
@@ -54,7 +76,7 @@ export default {
     box-sizing: border-box;
     margin-top: 80px;
     padding: 0 30px;
-    .info-item {
+    .info-item>div {
       width: 690px;
       padding: 60px 60px 0;
       margin-bottom: 40px;

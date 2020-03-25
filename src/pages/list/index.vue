@@ -60,6 +60,7 @@ export default {
       this.newsList = this.newsList.concat(val)
     },
     getParams (val) {
+      if (this.params.channelCode === val) return
       this.newsList = []
       this.params.channelCode = val
     },

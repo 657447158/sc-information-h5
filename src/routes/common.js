@@ -36,6 +36,10 @@ const routes = [
 		path:'/article-detail',
 		name:'article-detail',
 		component: () => import('../pages/article-detail/index.vue')
+	},{
+		path:'/travel-agency',
+		name:'ravel-agency',
+		component: () => import('../pages/travel-agency/index.vue')
 	}
 ]
 
