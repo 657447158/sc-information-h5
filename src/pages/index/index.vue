@@ -8,40 +8,31 @@
     </div>
     <div class="wrapper">
       <router-link class="item" to="/list?code=yxhgj">
-        <img src="@/assets/images/index@3x.png" alt />
-        <div>
-          <h3>{{$t('index.time.title')}}</h3>
-          <p>{{$t('index.time.slogan')}}</p>
-        </div>
+        <img src="@/assets/images/index@3x.png" />
+        <h3>{{$t('index.time.title')}}</h3>
       </router-link>
      <router-link class="item" to="/list?code=wymsh">
-        <img src="@/assets/images/index1@3x.png" alt />
-        <div>
-          <h3>{{$t('index.art.title')}}</h3>
-          <p>{{$t('index.art.slogan')}}</p>
-        </div>
+        <img src="@/assets/images/index1@3x.jpg" />
+        <h3>{{$t('index.art.title')}}</h3>
       </router-link>
       <router-link class="item" to="/list?code=chcbt">
-        <img src="@/assets/images/index2@3x.png" alt />
-        <div>
-          <h3>{{$t('index.food.title')}}</h3>
-          <p>{{$t('index.food.slogan')}}</p>
-        </div>
+        <img src="@/assets/images/index2@3x.png" />
+        <h3>{{$t('index.food.title')}}</h3>
       </router-link>
       <router-link class="item" to="/list?code=jxgsh">
-        <img src="@/assets/images/index3@3x.png" alt />
-        <div>
-          <h3>{{$t('index.story.title')}}</h3>
-          <p>{{$t('index.story.slogan')}}</p>
-        </div>
+        <img src="@/assets/images/index3@3x.png" />
+        <h3>{{$t('index.story.title')}}</h3>
       </router-link>
-      <router-link class="item" to="/list?code=hsysh">
-        <img src="@/assets/images/index4@3x.png" alt />
-        <div>
-          <h3>{{$t('index.night.title')}}</h3>
-          <p>{{$t('index.night.slogan')}}</p>
-        </div>
-      </router-link>
+      <div class="item item1">
+        <router-link to="/">
+          <img src="@/assets/images/index-video.jpeg" />
+          <span>{{$t('video')}}</span>
+        </router-link>
+        <router-link to="/">
+          <img src="@/assets/images/index-pic.jpeg" />
+          <span>{{$t('gallery')}}</span>
+        </router-link>
+      </div>
     </div>
 
     <div class="type">
@@ -137,39 +128,49 @@ export default {
     }
   }
   .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     padding: 80px 30px;
-    box-sizing: border-box;
     .item {
-      width: 690px;
-      height: 300px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding-left: 40px;
+      display: block;
+      width: 100%;
+      height: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .2);
       &~.item {
         margin-top: 50px;
       }
       h3 {
-        font-size: 46px;
+        padding: 0 30px;
+        font-size: 36px;
         font-weight: bold;
-        color: #ffffff;
-      }
-      p {
-        margin-top: 24px;
-        font-size: 24px;
-        color: #ffffff;
+        color: #333;
+        line-height: 100px;
+        background: #fff;
       }
       img {
+        display: block;
+        font-size: 0;
+        width: 100%;
+        height: 300px;
+      }
+    }
+    .item1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: none;
+      a {
+        position: relative;
+        width: 330px;
+        height: 300px;
+      }
+      span {
+        display: block;
+        width: 100%;
+        text-align: center;
         position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: -1;
+        bottom: 40px;
+        color: #fff;
+        font-size: 46px;
+        font-weight: bold;
       }
     }
   }
@@ -178,27 +179,30 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 100px;
-    .item a{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: calc(100vw / 3);
-      &:first-child {
-        margin-bottom: 60px;
-      }
-      .icon-mobile {
-        height: 120px;
-        width: 120px;
-        border: 1px solid  #999999;
+    .item {
+      width: 50%;
+      a {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        font-size: 52px;
-        color: #333333;
-      }
-      p{
-        margin-top: 30px;
-        font-size: 24px;
+        width: 100%;
+        &:first-child {
+          margin-bottom: 60px;
+        }
+        .icon-mobile {
+          height: 120px;
+          width: 120px;
+          border: 1px solid  #999999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 52px;
+          color: #333333;
+        }
+        p{
+          margin-top: 30px;
+          font-size: 24px;
+        }
       }
     }
   }

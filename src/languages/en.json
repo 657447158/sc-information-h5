@@ -2,29 +2,22 @@
     "webTit": "Sichuan Tourism",
     "app":{
         "home":"Home",
-        "CarefreeGoodTimes":"Carefree good times",
-        "slowLift":"Slow life of literature and art",
-        "versionMap":"Version treasure map",
-        "destination": "Destination",
-        "themeRavel": "Theme ravel",
-        "hotSeason":"Hot season",
+        "destination": "Places to go",
+        "themeRavel": "Discover Sichuan",
+        "hotSeason":"What’s Hot",
         "panda":"Panda",
-        "foodExploration":"Food exploration",
+        "foodExploration":"Food Culture",
         "artCulture":"Art culture",
         "folkCulture":"Folk Culture",
         "museum":"Museum",
-        "practicalInformation":"Practical information",
-        "touristVISA":"Tourist VISA",
+        "practicalInformation":"Useful Imformation",
+        "touristVISA":"Advice and Information",
         "cityTraffic":"City traffic",
         "hotelAccomodation":"Hotel accomodation",
         "travelAgencyInquiry":"Travel agency inquiry",
         "caringService":"Caring service",
         "healthAndLifeSafety":"Health and life safety",
         "noMore":"No more"
-    },
-    "header": {
-        "nav": ["Tourist Destinations", "Theme Tourism", "Practical Information", "Search"],
-        "info": ["Tourist VISA", "City traffic", "Hotel accomodation", "Travel agency inquiry", "Caring service", "Health and life safety"]
     },
     "noMore": "No more",
     "index": {
@@ -34,32 +27,16 @@
         },
         "more": "MORE",
         "time": {
-            "title": "Leisure Time",
-            "slogan": "Come and Have a Cup of Covered-Bowl Tea",
-            "theme": "Sichuan leisure time",
-            "theme-slogan": "Show you how to play the sichuan province"
+            "title": "Sichuan Tourist Attractions"
         },
         "art": {
-            "title": "Slow Life in Culture and Art",
-            "slogan": "To Be a Person of Culture"
+            "title": "Sichuan Culture & Art"
         },
         "food": {
-            "title": "Guide for Foodies",
-            "slogan": "Tasting Hot Pot and Chuanchuanxiang",
-            "theme": "Food Treasure Map",
-            "theme-slogan": "Dining in Sichuan, Countless Choices"
+            "title": "Sichuan Food & Drinks"
         },
         "story": {
-            "title": "Streets and Lanes in Sichuan",
-            "slogan": "Interesting Stories",
-            "theme": "Wandering on Ancient Streets,",
-            "theme-slogan": "Sharing Anecdotes"
-        },
-        "night": {
-            "title": "Midnight Snacks",
-            "slogan": "Let’s Spend the Night Together for a Disco",
-            "theme": "SICHUAN",
-            "theme-slogan": "Midnight Snacks"
+            "title": "Sichuan Anecdotes"
         }
     },
     "recommand": {
@@ -71,5 +48,7 @@
     "destination": {
         "pageTit": "Destination",
         "listTit": "Recommended tourist attractions"
-    }
+    },
+    "video": "Video",
+    "gallery": "Gallery"
 }

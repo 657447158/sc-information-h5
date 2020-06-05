@@ -16,9 +16,9 @@
     <div class="submenu" :class="{ 'hide': isHide }">
       <div class="menu-item">
         <h5 @click="goTo('index')">{{$t('app.home')}}</h5>
-        <p @click="goTo('list?code=yxhgj')">{{$t('app.CarefreeGoodTimes')}}</p>
+        <!-- <p @click="goTo('list?code=yxhgj')">{{$t('app.CarefreeGoodTimes')}}</p>
         <p @click="goTo('list?code=wymsh')">{{$t('app.slowLift')}}</p>
-        <p @click="goTo('list?code=chcbt')">{{$t('app.versionMap')}}</p>
+        <p @click="goTo('list?code=chcbt')">{{$t('app.versionMap')}}</p> -->
       </div>
       <div class="menu-item">
         <h5 @click="goTo('destination?code=mdd')">{{$t('app.destination')}}</h5>
