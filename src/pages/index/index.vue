@@ -24,11 +24,11 @@
         <h3>{{$t('index.story.title')}}</h3>
       </router-link>
       <div class="item item1">
-        <router-link to="/">
+        <router-link to="/video-list">
           <img src="@/assets/images/index-video.jpeg" />
           <span>{{$t('video')}}</span>
         </router-link>
-        <router-link to="/">
+        <router-link to="/pic-list">
           <img src="@/assets/images/index-pic.jpeg" />
           <span>{{$t('gallery')}}</span>
         </router-link>
@@ -41,7 +41,7 @@
         v-for="item in informationList"
         :key="item.id"
       >
-        <router-link :to="`list?code=${item.channelCode}`" v-if="item.channelCode === 'zs' || item.channelCode ==='jkhrsaq'">
+        <router-link to="hotel-list" v-if="item.channelCode === 'zs' || item.channelCode ==='jkhrsaq'">
           <i class="icon-mobile" v-html="item.metaDescription"></i>
           <p>{{item.name}}</p>
         </router-link>

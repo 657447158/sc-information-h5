@@ -40,7 +40,22 @@ const routes = [
 		path:'/travel-agency',
 		name:'ravel-agency',
 		component: () => import('../pages/travel-agency/index.vue')
-	}
+	},
+	{
+		path: '/hotel-list',
+		name: '/hotel-list',
+		component: () => import('../pages/hotel-list/index.vue')
+	},
+	{
+		path: '/video-list',
+		name: '/video-list',
+		component: () => import('../pages/video-list/index.vue')
+	},
+	{
+		path: '/pic-list',
+		name: '/pic-list',
+		component: () => import('../pages/pic-list/index.vue')
+	},
 ]
 
 export default routes

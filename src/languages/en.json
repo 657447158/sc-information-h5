@@ -50,5 +50,11 @@
         "listTit": "Recommended tourist attractions"
     },
     "video": "Video",
-    "gallery": "Gallery"
+    "gallery": "Gallery",
+    "hotel": {
+        "phone": "phone",
+        "address": "address",
+        "starRating":"Star Rating",
+        "area":"Area"
+    }
 }

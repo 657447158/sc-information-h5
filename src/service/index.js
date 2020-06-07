@@ -235,6 +235,34 @@ const api = {
       params: Object.assign({...params})
     })
   },
+   /**
+   * [多媒体分类]
+   * type: 1 图片; 2 视频; 3 音频;
+   */
+  getTagsByType (params) {
+    return ajax({
+      url: 'sitepicture/getMediaTypeThree',
+      params: Object.assign({...params})
+    })
+  },
+    /**
+   * [视频列表]
+   */
+  getVideoList (params) {
+    return ajax({
+      url: 'sitevideo/list',
+      params: Object.assign({...params})
+    })
+  },
+    /**
+   * [图片列表]
+   */
+  getPicList (params) {
+    return ajax({
+      url: 'sitepicture/list',
+      params: Object.assign({datatype: 'sourceType_1'}, {...params})
+    })
+  },
 }
 
 export default api

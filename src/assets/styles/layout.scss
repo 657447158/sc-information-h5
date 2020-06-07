@@ -114,6 +114,23 @@ img {
 	}
 }
 
+@font-face {
+	font-family: 'm-iconfont';  /* project id 657935 */
+	src: url('//at.alicdn.com/t/font_657935_cs0iidp0566.eot');
+	src: url('//at.alicdn.com/t/font_657935_cs0iidp0566.eot?#iefix') format('embedded-opentype'),
+	url('//at.alicdn.com/t/font_657935_cs0iidp0566.woff2') format('woff2'),
+	url('//at.alicdn.com/t/font_657935_cs0iidp0566.woff') format('woff'),
+	url('//at.alicdn.com/t/font_657935_cs0iidp0566.ttf') format('truetype'),
+	url('//at.alicdn.com/t/font_657935_cs0iidp0566.svg#m-iconfont') format('svg');
+  }
+  
+.ued-mobile {
+	font-family: "m-iconfont" !important;
+	font-size: $f26;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
 .animation-translate-bottom-in {
 	animation: bottomIn ease .4s forwards
 }
