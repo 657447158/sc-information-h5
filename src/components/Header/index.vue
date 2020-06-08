@@ -34,7 +34,7 @@
       </div>
       <div class="menu-item">
         <h5 @click="goTo('serviceInfo?code=info')">{{$t('app.practicalInformation')}}</h5>
-        <p @click="goTo('channel-detail?code=qz')">{{$t('app.touristVISA')}}</p>
+        <p @click="goTo('list-sub?code=qz')">{{$t('app.touristVISA')}}</p>
         <p @click="goTo('channel-detail?code=jt')">{{$t('app.cityTraffic')}}</p>
         <p @click="goTo('hotel-list')">{{$t('app.hotelAccomodation')}}</p>
         <p @click="goTo('travel-agency?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>

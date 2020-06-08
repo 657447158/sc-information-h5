@@ -56,5 +56,10 @@
         "address": "address",
         "starRating":"Star Rating",
         "area":"Area"
-    }
+    },
+    "travel": {
+        "type": "type",
+        "address": "address"
+    },
+    "copy": "Copyright &copy;2019 Sichuan Culture and Tourism Information Center All Rights Reserved"
 }

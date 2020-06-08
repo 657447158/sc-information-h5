@@ -6,7 +6,7 @@
         <a class="icon-mobile" href="https://twitter.com/Amazingsichuan">&#xe67a;</a>
         <a class="icon-mobile" href="https://www.instagram.com/visit_sichuan/">&#xe69b;</a>
       </div>
-      <p class="copy-right">Copyright © 2019 Sichuan Tourism Information Center All Rights Reserved</p>
+      <p class="copy-right">{{$t('copy')}}</p>
     </div>
   </div>
 </template>

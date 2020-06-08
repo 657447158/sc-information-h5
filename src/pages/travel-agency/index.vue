@@ -15,8 +15,8 @@
           :to="{path: '/article-detail', query: {id: item.id}}"
         >
           <p class="agency-tit">{{item.name}}</p>
-          <p class="agency-info">licenseno：{{item.licenseno}}</p>
-          <p class="agency-info">type：{{item.resourceLevel}}</p>
+          <p class="agency-info">{{$t('travel.type')}}：{{item.resourceLevel}}</p>
+          <p class="agency-info">{{$t('travel.address')}}：{{item.address}}</p>
         </router-link>
       </ul>
     </scroll-load>

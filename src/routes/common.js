@@ -56,6 +56,11 @@ const routes = [
 		name: '/pic-list',
 		component: () => import('../pages/pic-list/index.vue')
 	},
+	{
+		path: '/list-sub',
+		name: '/list-sub',
+		component: () => import('../pages/list-sub/index.vue')
+	},
 ]
 
 export default routes

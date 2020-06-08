@@ -17,7 +17,7 @@
     <div class="hotel-wrap">
       <!-- <div class="scenic-info">精挑细选，只为了你</div>
       <div class="scenic-summary">房型丰富，风格迥异更养眼；暂别奔忙，来这里品味慢生活...</div> -->
-      <div class="select" style="padding-top:10px">
+      <!-- <div class="select" style="padding-top:10px">
         <p>{{$t('hotel.starRating')}}</p>
         <ul>
           <li
@@ -36,9 +36,9 @@
             :class="regionActive === index ? 'curr' : ''"
           >{{item.name}}</li>
         </ul>
-      </div>
+      </div> -->
       <!-- 酒店列表 -->
-      <scroll-load requestName="getHotelList" @list="getList" :params="params">
+      <scroll-load requestName="getHotelList" @list="getList" :params="params" style="padding-top:20px">
         <ul class="hotel" slot="list">
           <li class="hotel-list" v-for="item in list" :key="item.id">
             <a>
@@ -201,7 +201,7 @@ export default {
 }
 .select {
   padding: 0 40px;
-  color: $fc07;
+  color: #666;
   font-size: $f24;
   line-height: 1;
   p {
@@ -252,7 +252,7 @@ export default {
       }
       &-other {
         margin-top: 24px;
-        color: $fc07;
+        color: #666;
         font-size: $f24;
         line-height: 1;
         @include ellipsis;

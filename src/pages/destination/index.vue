@@ -2,21 +2,21 @@
   <div class="destination-container">
     <Header />
     <Banner code="mdd" :title="$t('destination.pageTit')"/>
+    <div class="title">Choose destination</div>
+    <div class="menu">
+      <span
+        v-for="item in list"
+        :key="item.id"
+        :class="{'active':item.id === detail.id}"
+        @click="changeChannelCode(item.channelCode)"
+      >{{item.name}}</span>
+    </div>
     <div class="top">
-      <div class="title">Choose destination</div>
-      <div class="menu">
-        <span
-          v-for="item in list"
-          :key="item.id"
-          :class="{'active':item.id === detail.id}"
-          @click="changeChannelCode(item.channelCode)"
-        >{{item.name}}</span>
-      </div>
       <div class="desc-title">{{detail.name}}</div>
       <div class="content">
         <p v-html="detail.content"></p>
       </div>
-      <div class="arrow icon-mobile" v-if="detail.content.length">&#xe6af;</div>
+      <div class="arrow icon-mobile" v-if="detail.content">&#xe6af;</div>
     </div>
     <div class="bottom">
       <h3>Recommended tourist attractions</h3>
@@ -130,43 +130,48 @@ export default {
 .destination-container {
   width: 100%;
   height: 100%;
+  .title {
+    box-sizing: border-box;
+    padding: 100px 30px 40px;
+    text-indent: 40px;
+    font-size: 46px;
+    font-weight: bold;
+    color: #333333;
+    position: relative;
+    &::before {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      left: 30px;
+      border-top: 20px solid transparent;
+      border-left: 25px solid #333333;
+      border-bottom: 20px solid transparent;
+    }
+  }
+  .menu {
+    position: sticky;
+    top: 120px;
+    z-index: 9;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    margin-bottom: 40px;
+    background: #f5f5f5;
+    span {
+      padding: 40px 30px;
+      font-size: 24px;
+      color: #666666;
+      font-weight: bold;
+      white-space: nowrap;
+      &.active {
+        color: #d3a180;
+      }
+    }
+  }
   .top {
     background: #f5f5f5;
-    .title {
-      box-sizing: border-box;
-      padding: 100px 30px 40px;
-      text-indent: 40px;
-      font-size: 46px;
-      font-weight: bold;
-      color: #333333;
-      position: relative;
-      &::before {
-        position: absolute;
-        content: "";
-        width: 0;
-        height: 0;
-        left: 30px;
-        border-top: 20px solid transparent;
-        border-left: 25px solid #333333;
-        border-bottom: 20px solid transparent;
-      }
-    }
-    .menu {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow: scroll;
-      margin-bottom: 40px;
-      span {
-        padding: 40px 30px;
-        font-size: 24px;
-        color: #666666;
-        font-weight: bold;
-        white-space: nowrap;
-        &.active {
-          color: #d3a180;
-        }
-      }
-    }
+
     .desc-title {
       padding: 40px 30px;
       font-size: 46px;
