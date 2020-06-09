@@ -41,11 +41,15 @@
         v-for="item in informationList"
         :key="item.id"
       >
-        <router-link to="hotel-list" v-if="item.channelCode === 'zs' || item.channelCode ==='jkhrsaq'">
+        <router-link to="hotel-list" v-if="item.channelCode === 'zs'">
           <i class="icon-mobile" v-html="item.metaDescription"></i>
           <p>{{item.name}}</p>
         </router-link>
         <router-link :to="`travel-agency?code=${item.channelCode}`" v-else-if="item.channelCode === 'lxs'">
+          <i class="icon-mobile" v-html="item.metaDescription"></i>
+          <p>{{item.name}}</p>
+        </router-link>
+        <router-link :to="`list-sub?code=${item.channelCode}`" v-else-if="item.channelCode=== 'qz'">
           <i class="icon-mobile" v-html="item.metaDescription"></i>
           <p>{{item.name}}</p>
         </router-link>
@@ -139,7 +143,7 @@ export default {
       }
       h3 {
         padding: 0 30px;
-        font-size: 36px;
+        font-size: 30px;
         font-weight: bold;
         color: #333;
         line-height: 100px;
@@ -169,7 +173,7 @@ export default {
         position: absolute;
         bottom: 40px;
         color: #fff;
-        font-size: 46px;
+        font-size: 30px;
         font-weight: bold;
       }
     }
@@ -201,7 +205,7 @@ export default {
         }
         p{
           margin-top: 30px;
-          font-size: 24px;
+          font-size: 30px;
         }
       }
     }
