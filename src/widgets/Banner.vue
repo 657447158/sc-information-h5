@@ -20,13 +20,23 @@ export default {
     }
   },
   mounted () {
-    this.Ajax.getChannelDetail({
-      channelCode: this.code
-    }).then(res => {
-      if (res.code === 0) {
-        this.detail = res.data
-      }
-    })
+    this.getBanner()
+  },
+  methods: {
+    getBanner (code = this.code) {
+      this.Ajax.getChannelDetail({
+        channelCode: code
+      }).then(res => {
+        if (res.code === 0) {
+          this.detail = res.data
+        }
+      })
+    }
+  },
+  watch: {
+    $route (to) {
+      this.getBanner(to.query.code)
+    }
   }
 }
 </script>

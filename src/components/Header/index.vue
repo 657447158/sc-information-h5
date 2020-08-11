@@ -4,9 +4,9 @@
       <router-link to="index">
         <img src="@/assets/images/logo@3x.png" class="logo" />
       </router-link>
-      <div class="header-right" @click="toggleMenu">
-        <!-- <span class="icon-mobile">&#xe673;</span> -->
-        <span class="menu">
+      <div class="header-right">
+        <span class="header-right-icon" @click="toggleLang"></span>
+        <span class="menu" @click="toggleMenu">
           <i></i>
           <i></i>
           <i></i>
@@ -18,10 +18,10 @@
         <h5 @click="goTo('index')">{{$t('app.home')}}</h5>
         <!-- <p @click="goTo('list?code=yxhgj')">{{$t('app.CarefreeGoodTimes')}}</p>
         <p @click="goTo('list?code=wymsh')">{{$t('app.slowLift')}}</p>
-        <p @click="goTo('list?code=chcbt')">{{$t('app.versionMap')}}</p> -->
+        <p @click="goTo('list?code=chcbt')">{{$t('app.versionMap')}}</p>-->
       </div>
       <div class="menu-item">
-        <h5 @click="goTo('destination?code=mdd')">{{$t('app.destination')}}</h5>
+        <h5 @click="goTo('destination?code=destination')">{{$t('app.destination')}}</h5>
       </div>
       <div class="menu-item">
         <h5 @click="goTo('recommend?code=recommend')">{{$t('app.themeRavel')}}</h5>
@@ -38,10 +38,37 @@
         <p @click="goTo('channel-detail?code=jt')">{{$t('app.cityTraffic')}}</p>
         <p @click="goTo('hotel-list')">{{$t('app.hotelAccomodation')}}</p>
         <p @click="goTo('travel-agency?code=lxs')">{{$t('app.travelAgencyInquiry')}}</p>
-        <p @click="goTo('channel-detail?code=fw')">{{$t('app.caringService')}}</p>
-        <p @click="goTo('list?code=jkhrsaq')" style="padding-bottom:80px">{{$t('app.healthAndLifeSafety')}}</p>
+        <!-- <p @click="goTo('channel-detail?code=fw')">{{$t('app.caringService')}}</p>
+        <p
+          @click="goTo('list?code=jkhrsaq')"
+          style="padding-bottom:80px"
+        >{{$t('app.healthAndLifeSafety')}}</p> -->
       </div>
     </div>
+    <!-- 多语言选择 -->
+    <ul class="lang" :class="langShow && 'active'">
+      <li>
+        <a href="http://www.tsichuan.com/mobile/#/index">China - 简体中文</a>
+      </li>
+      <li>
+        <a href="http://www.tsichuan.com/mobile-en/#/index">Global - English</a>
+      </li>
+      <li>
+        <a href="http://www.tsichuan.com/mobile-fr/#/index">France - Français</a>
+      </li>
+      <li>
+        <a href="http://www.tsichuan.com/mobile-de/#/index">Germany - Deutsch</a>
+      </li>
+      <li>
+        <a href="http://www.tsichuan.com/mobile-es/#/index">Spain - Español</a>
+      </li>
+      <li>
+        <a href="http://www.tsichuan.com/mobile-ja/#/index">Japan - 日本語</a>
+      </li>
+      <li>
+        <a href="http://www.tsichuan.com/mobile-ko/#/index">South Korea - 대한민국</a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -49,16 +76,22 @@
 export default {
   data() {
     return {
-      isHide: true
+      isHide: true,
+      langShow: false
     };
   },
   methods: {
     toggleMenu() {
+      this.langShow = false;
       this.isHide = !this.isHide;
     },
-    goTo (url) {
-      this.toggleMenu()
-      this.$router.push(url)
+    toggleLang() {
+      this.isHide = true;
+      this.langShow = !this.langShow;
+    },
+    goTo(url) {
+      this.toggleMenu();
+      this.$router.push(url);
     }
   }
 };
@@ -111,6 +144,12 @@ export default {
           background: #000000;
         }
       }
+      &-icon {
+        width: 36px;
+        height: 36px;
+        background: url("../../assets/images/head-lang-icon.png") no-repeat
+          center / 100% 100%;
+      }
     }
   }
   .submenu {
@@ -149,6 +188,35 @@ export default {
         color: #666666;
         // background: red;
         font-weight: normal;
+      }
+    }
+  }
+  .lang {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    z-index: 999999;
+    padding: 0 60px;
+    width: 100vw;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s linear;
+    background: #fff;
+    &.active {
+      height: calc(100vh - 120px);
+      // padding: 40px 60px;
+    }
+    li {
+      line-height: 72px;
+      &:first-child {
+        margin-top: 40px;
+      }
+      a {
+        color: #666;
+        font-size: 32px;
+        &:active {
+          color: #f77800;
+        }
       }
     }
   }

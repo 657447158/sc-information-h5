@@ -52,14 +52,14 @@
     "video": "Video",
     "gallery": "Gallery",
     "hotel": {
-        "phone": "phone",
-        "address": "address",
+        "phone": "Phone",
+        "address": "Address",
         "starRating":"Star Rating",
         "area":"Area"
     },
     "travel": {
-        "type": "type",
-        "address": "address"
+        "type": "Type",
+        "address": "Address"
     },
     "copy": "Copyright &copy;2019 Sichuan Culture and Tourism Information Center All Rights Reserved"
 }
